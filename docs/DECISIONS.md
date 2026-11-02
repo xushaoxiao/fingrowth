@@ -1,0 +1,3 @@
+# Design decisions
+
+2026-11-02 — Python standard library keeps the demo reproducible without credentials or network access. Aggregate synthetic fixtures prevent accidental use of real customer records. Deterministic arithmetic is separated from agent judgment. MIT enables reuse; host compatibility and legal suitability remain separately evaluated. No employer experience is asserted as a verified case study: current inputs support general architecture only. GitHub browser and connector authentication restored for initial public publication. Feishu synchronization remains pending an authorized writable connection.

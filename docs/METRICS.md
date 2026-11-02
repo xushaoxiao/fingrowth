@@ -1,0 +1,5 @@
+# Metric contract
+
+Fixture unit: one synthetic acquisition cohort, USD, January 2026, outcomes observed October 31. Counts are nested unique people with at most one first loan, and repaid means full contractual repayment within this example's observation horizon. Repeat is a subset of fully repaid people. This simplified model excludes overlapping repeat-loan exposures. Real event streams require deduplication, join keys and loan-level exposure accounting before aggregation.
+
+Step conversion = next / previous; funded CAC = acquisition cost / disbursed. Zero denominator → null. Contribution = recognized revenue less acquisition, credit loss, funding, servicing and incentives. Principal is not revenue. Costs are mutually exclusive totals in the same currency and cohort. Credit loss is a single loss measure, never ECL plus realized loss. Maturity is supplied metadata, not independently established by this tool. Immature contribution → null. No APR, default probability, regulatory capital, lifetime value or causal uplift is estimated.

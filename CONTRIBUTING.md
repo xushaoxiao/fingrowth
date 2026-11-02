@@ -1,0 +1,3 @@
+# Contributing
+
+Use synthetic aggregate fixtures only. Explain the business question, population, window, denominator, maturity and attribution limits. Add regression tests for changed calculations. Run the README commands before submitting a PR. Never include customer rows, employer documents, secrets or production configuration. Document assumptions and limitations; do not claim regulatory compliance or production readiness from tests. Reviewers must check risk, fairness, consent and delayed outcome implications. Disclose security issues privately to the repository owner rather than posting sensitive evidence publicly.

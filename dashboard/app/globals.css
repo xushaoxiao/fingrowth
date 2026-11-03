@@ -1296,5 +1296,5 @@ h1 {
     transition: none !important;
   }
 }
-.theme-select{width:145px;flex-shrink:0}.theme-select .select__trigger{min-height:32px;font-size:11px;border:1px solid #e1e8df;box-shadow:none;background:#fff;gap:7px}.theme-swatch{display:inline-block;width:9px;height:9px;border-radius:50%;flex-shrink:0}.list-box-item .theme-swatch{margin-right:7px}
+.theme-select{width:145px;flex-shrink:0}.theme-select .select__trigger{min-height:32px;font-size:11px;border:1px solid #e1e8df;box-shadow:none;background:#fff;gap:7px}.theme-swatch{display:inline-block;width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-inline-end:7px;vertical-align:middle}
 @media(max-width:640px){.theme-select{width:112px}.theme-select .select__trigger{font-size:10px;min-height:29px;padding:5px 8px}.topbar-right{gap:10px}.topbar-right .user-avatar{display:none}}

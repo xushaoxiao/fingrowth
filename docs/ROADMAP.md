@@ -31,4 +31,8 @@ Benchmark tasks for the four skills, bilingual case walkthroughs and host-specif
 
 Weekly review: reproducible usage reports, issue quality and qualified practitioner feedback. Monthly review: milestone acceptance and the next evidence gap. Publish only verified capabilities. Do not claim employer endorsement, real lending uplift or regulatory certification.
 
-Repository remains the source of truth. Feishu synchronization remains pending a confirmed writable workspace; no synchronization is claimed by this iteration.
+Repository remains the source of truth. The FinGrowth Feishu workspace was created on 2026-11-02 through the authenticated browser. It is maintained separately; automatic API/MCP synchronization is not established. Release and subsequent iteration updates must be recorded there explicitly.
+
+Feishu workspace: https://my.feishu.cn/wiki/QhECwdHL6iONw4kJ2QocFpxcnJg
+
+The next bounded implementation is a fixed-horizon, 1:1, two-sided binary-outcome experiment power tool. Loan maturity verification first needs a schedule/exposure/censoring contract; do not replace that work with a date check.

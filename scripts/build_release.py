@@ -28,6 +28,44 @@ def write_zip(path, files):
             archive.writestr(info, content)
 
 
+def collect_dependency_notices(node_modules):
+    """Read an ordered inventory without importing or executing dependencies."""
+    node_modules = Path(node_modules)
+    if not node_modules.is_dir():
+        raise ValueError("dependency notices require an installed node_modules directory")
+    sections = [
+        "Installed build dependency notices inventory\n"
+        "Collected from LICENSE*, LICENCE*, COPYING* and NOTICE* files in node_modules.\n"
+        "Includes build-only dependencies; this does not claim every listed package is bundled.\n"
+    ]
+    notices = [file for file in node_modules.rglob("*")
+               if file.is_file() and not file.is_symlink()
+               and file.name.upper().startswith(("LICENSE", "LICENCE", "COPYING", "NOTICE"))]
+    for file in sorted(notices, key=lambda item: item.relative_to(node_modules).as_posix()):
+        relative = file.relative_to(node_modules).as_posix()
+        text = file.read_bytes().decode("utf-8", errors="replace")
+        sections.append(f"\n===== {relative} =====\n{text.rstrip()}\n")
+    return "".join(sections).encode("utf-8")
+
+
+def write_dashboard_zip(path, dashboard, license_text, dependency_notices=None):
+    """Package the static export with its project license and existing notices."""
+    dashboard = Path(dashboard)
+    if not (dashboard / "index.html").is_file():
+        raise ValueError("dashboard export is missing index.html")
+    files = {file.relative_to(dashboard).as_posix(): file.read_bytes()
+             for file in dashboard.rglob("*") if file.is_file()}
+    if "LICENSE" in files and files["LICENSE"] != license_text:
+        raise ValueError("dashboard export has a conflicting LICENSE; preserve it under a distinct notice filename")
+    files["LICENSE"] = license_text
+    if dependency_notices is not None:
+        existing = files.get("THIRD-PARTY-NOTICES.txt")
+        files["THIRD-PARTY-NOTICES.txt"] = dependency_notices
+        if existing is not None:
+            files["THIRD-PARTY-NOTICES.txt"] += b"\n===== Static export supplied notices =====\n" + existing
+    write_zip(path, files)
+
+
 def build(root, output, include_dashboard=False):
     root, output = Path(root).resolve(), Path(output).resolve()
     if git(root, "status", "--porcelain", "--untracked-files=all"):
@@ -68,11 +106,9 @@ def build(root, output, include_dashboard=False):
         artifacts.append(name)
     if include_dashboard:
         dashboard = root / "dashboard/out"
-        if not (dashboard / "index.html").is_file():
-            raise ValueError("dashboard export is missing index.html")
         name = f"fingrowth-dashboard-{version}.zip"
-        write_zip(output / name, {str(path.relative_to(dashboard)): path.read_bytes()
-                                 for path in dashboard.rglob("*") if path.is_file()})
+        write_dashboard_zip(output / name, dashboard, license_text,
+                            collect_dependency_notices(root / "dashboard/node_modules"))
         artifacts.append(name)
     manifest = {
         "version": version,

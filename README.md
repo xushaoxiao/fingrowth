@@ -58,4 +58,4 @@ Agents advise; scripts calculate; humans own lending, risk and launch decisions.
 
 Read the [complete case](examples/lending/CASE.md), [metric contract](docs/METRICS.md), [guardrails](docs/GUARDRAILS.md), [skill specification](docs/SKILL-SPEC.md) and [roadmap](docs/ROADMAP.md).
 
-v0.1.0 candidate: see [Agent acceptance](evals/ACCEPTANCE.md), [release preparation](docs/releases/v0.1.0.md) and [changelog](CHANGELOG.md). Explicitly loaded Agent tasks are evaluated; automatic host discovery and real-world lending outcomes remain separate milestones. MIT licensed.
+v0.1.0: see [Agent acceptance](evals/ACCEPTANCE.md), [release preparation](docs/releases/v0.1.0.md) and [changelog](CHANGELOG.md). Explicitly loaded Agent tasks are evaluated; automatic host discovery and real-world lending outcomes remain separate milestones. MIT licensed.

@@ -82,5 +82,83 @@ class ReleaseTest(unittest.TestCase):
             m.build(self.root, output)
 
 
+class DashboardArchiveTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="fingrowth-dashboard-release-")
+        self.addCleanup(self.temp.cleanup)
+        self.base = Path(self.temp.name)
+        self.dashboard = self.base / "out"
+        self.dashboard.mkdir()
+        self.license_text = (ROOT / "LICENSE").read_bytes()
+
+    def test_static_export_keeps_assets_notices_and_project_license(self):
+        html = b"<!doctype html><title>Synthetic FinGrowth fixture</title>"
+        notice = b"Synthetic third-party notice fixture; retain this text.\n"
+        (self.dashboard / "index.html").write_bytes(html)
+        notices = self.dashboard / "_next" / "static" / "notices"
+        notices.mkdir(parents=True)
+        (notices / "THIRD-PARTY-NOTICES.txt").write_bytes(notice)
+        one, two = self.base / "one.zip", self.base / "two.zip"
+        m.write_dashboard_zip(one, self.dashboard, self.license_text)
+        m.write_dashboard_zip(two, self.dashboard, self.license_text)
+        self.assertEqual(one.read_bytes(), two.read_bytes())
+        with zipfile.ZipFile(one) as archive:
+            self.assertEqual(archive.read("index.html"), html)
+            self.assertEqual(archive.read("LICENSE"), self.license_text)
+            self.assertEqual(archive.read("_next/static/notices/THIRD-PARTY-NOTICES.txt"), notice)
+        self.assertFalse((self.dashboard / "LICENSE").exists())
+        self.assertEqual((notices / "THIRD-PARTY-NOTICES.txt").read_bytes(), notice)
+
+    def test_missing_index_does_not_create_an_archive(self):
+        output = self.base / "dashboard.zip"
+        with self.assertRaisesRegex(ValueError, "missing index.html"):
+            m.write_dashboard_zip(output, self.dashboard, self.license_text)
+        self.assertFalse(output.exists())
+
+    def test_conflicting_export_license_is_not_silently_overwritten(self):
+        (self.dashboard / "index.html").write_text("Synthetic fixture")
+        other_license = b"Synthetic exported dependency license fixture\n"
+        (self.dashboard / "LICENSE").write_bytes(other_license)
+        output = self.base / "dashboard.zip"
+        with self.assertRaisesRegex(ValueError, "conflicting LICENSE"):
+            m.write_dashboard_zip(output, self.dashboard, self.license_text)
+        self.assertFalse(output.exists())
+        self.assertEqual((self.dashboard / "LICENSE").read_bytes(), other_license)
+
+    def test_dependency_notice_inventory_is_ordered_relative_and_packaged(self):
+        dependencies = self.base / "node_modules"
+        fixtures = {
+            "z-build-only/NOTICE.txt": "Synthetic build-only notice.\n",
+            "next/dist/compiled/example/LICENSE": "Synthetic bundled dependency license.\n",
+            "a-package/COPYING.md": "Synthetic package copying terms.\n",
+            "a-package/README.md": "Not a notice; excluded.\n",
+        }
+        for name, text in fixtures.items():
+            file = dependencies / name
+            file.parent.mkdir(parents=True, exist_ok=True)
+            file.write_text(text, encoding="utf-8")
+        inventory = m.collect_dependency_notices(dependencies)
+        self.assertEqual(inventory, m.collect_dependency_notices(dependencies))
+        text = inventory.decode("utf-8")
+        self.assertIn("does not claim every listed package is bundled", text)
+        self.assertNotIn(str(self.base), text)
+        self.assertNotIn("Not a notice; excluded", text)
+        expected = ("a-package/COPYING.md", "next/dist/compiled/example/LICENSE", "z-build-only/NOTICE.txt")
+        positions = [text.index("===== " + name + " =====") for name in expected]
+        self.assertEqual(positions, sorted(positions))
+        for name in expected:
+            self.assertIn(fixtures[name].strip(), text)
+        (self.dashboard / "index.html").write_text("Synthetic fixture")
+        (self.dashboard / "THIRD-PARTY-NOTICES.txt").write_text("Retain export notice.\n")
+        output = self.base / "dashboard.zip"
+        m.write_dashboard_zip(output, self.dashboard, self.license_text, inventory)
+        with zipfile.ZipFile(output) as archive:
+            self.assertEqual(archive.read("LICENSE"), self.license_text)
+            packaged = archive.read("THIRD-PARTY-NOTICES.txt")
+            self.assertTrue(packaged.startswith(inventory))
+            self.assertIn(b"Retain export notice.", packaged)
+        self.assertEqual((self.dashboard / "THIRD-PARTY-NOTICES.txt").read_text(), "Retain export notice.\n")
+
+
 if __name__ == "__main__":
     unittest.main()

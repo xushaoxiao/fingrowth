@@ -1,0 +1,55 @@
+{
+  "method": "two-independent-proportions-normal-z-pooled-null-unpooled-alternative",
+  "method_reference": "https://www.statsmodels.org/v0.14.6/generated/statsmodels.stats.proportion.power_proportions_2indep.html",
+  "design": {
+    "allocation": "1:1",
+    "alternative": "two-sided",
+    "stopping": "fixed horizon",
+    "primary_outcomes": 1,
+    "randomization_unit": "independent assigned eligible person"
+  },
+  "inputs": {
+    "baseline": 0.6,
+    "mde_absolute": 0.03,
+    "treatment_rate_at_mde": 0.63,
+    "alpha": 0.05,
+    "target_power": 0.8
+  },
+  "sample": {
+    "per_arm": 4129,
+    "total": 8258,
+    "approximate_power": 0.8000351788374795,
+    "approximate_power_one_fewer_per_arm": 0.7999401560815504,
+    "minimum_expected_success_or_failure": 1527.73
+  },
+  "calculation": {
+    "pooled_rate": 0.615,
+    "z_critical": 1.9599639845400538,
+    "sd_null_without_sqrt_n": 0.6881496930174422,
+    "sd_alternative_without_sqrt_n": 0.6878226515607057,
+    "search": "smallest integer n with both-tail approximate power >= target",
+    "power_formula": "SF((zcrit*sd_null-delta*sqrt(n))/sd_alt) + CDF((-zcrit*sd_null-delta*sqrt(n))/sd_alt)"
+  },
+  "timing": {
+    "eligible_assignments_per_day_total": 400.0,
+    "recruitment_days_at_assumed_rate": 21,
+    "primary_followup_days_after_last_assignment": 7,
+    "earliest_primary_readout_day_after_start": 28,
+    "delayed_risk_review_day": null
+  },
+  "decision": {
+    "launch_readiness": "not assessed",
+    "risk_thresholds_and_approvals": "unknown",
+    "scale_up": "requires separately reviewed mature risk and economic outcomes"
+  },
+  "limits": [
+    "Planning approximation, not exact binomial power or a guarantee of observed uplift.",
+    "Power at the assumed MDE tests zero difference; it does not prove the true effect exceeds the MDE.",
+    "Independent binary ITT outcomes, one primary metric, equal allocation, no interim peeking.",
+    "No clustered/repeated units, sequential or multiple-outcome designs, or loss/amount-mean power.",
+    "At least 10 expected successes and failures per arm is a conservative scope gate, not proof of accuracy.",
+    "Traffic and follow-up are supplied assumptions; operational delays and missing outcomes can extend timing.",
+    "Primary-metric power does not power fraud, complaints, credit loss or contribution guardrails.",
+    "Missing approved numeric guardrails or owner approvals still block launch; immature risk blocks scale-up."
+  ]
+}

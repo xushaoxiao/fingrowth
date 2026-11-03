@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add a standalone fixed-horizon binary experiment power planner, independent numerical references, a synthetic KYC planning example and retained Agent task evidence. This does not extend the tool to sequential, clustered or credit-loss amount outcomes, and does not approve experiment launch.
+
 ## 0.1.0 — 2026-11-03
 
 - Five consumer-lending Agent Skills (including a source adapter) for growth architecture, metric trees, funnel diagnosis and experiment design, each with standalone supporting resources.

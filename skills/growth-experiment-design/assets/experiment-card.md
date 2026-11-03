@@ -10,7 +10,9 @@
 - Primary metric: numerator / assigned eligible denominator (ITT) / horizon / source:
 - Economic outcome and loss basis, if relevant:
 - Baseline, absolute or relative MDE, alpha, power, method and sample size:
+- Calculation evidence (command, method reference, achieved approximate power, expected-cell scope gate) or why unresolved:
 - Eligible assignments per day, recruitment duration and follow-up:
+- Earliest primary readout versus separate delayed-risk review date (unknown until justified):
 - Multiplicity and stopping procedure:
 
 | Guardrail | Numerator / denominator | Horizon / maturity | Approved numeric stop threshold | Owner | Stop / recovery action |
@@ -30,4 +32,4 @@
 
 Hypothesis: clearer document-upload instructions improve KYC completion within seven days. Randomize eligible consenting new applicants once, before KYC, 1:1; persist assignment. Primary = assigned people completing KYC within seven days / all assigned eligible people. Keep risk policy unchanged. Technical error reason codes help interpret the result but do not replace ITT analysis.
 
-Baseline/MDE, sample size, numeric guardrails and eligible daily traffic are not supplied. Status: **blocked before launch**. A seven-day KYC horizon is not a mature credit-loss horizon; even an immediate primary-metric win cannot authorize economic scale-up.
+Baseline/MDE, sample size, numeric guardrails and eligible daily traffic are not supplied. Status: **blocked before launch**. Do not populate them from the invented power-planning example unless explicitly using that synthetic scenario. The bundled calculator can help once the design and inputs fit its contract; calculation success alone cannot remove this gate. A seven-day KYC horizon is not a mature credit-loss horizon; even an immediate primary-metric win cannot authorize economic scale-up.

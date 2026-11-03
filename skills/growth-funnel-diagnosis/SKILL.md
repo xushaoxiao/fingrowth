@@ -20,10 +20,14 @@ python3 <skill-directory>/scripts/analyze.py <cohorts.json> --format markdown
 
 Resolve `<skill-directory>` from this file's location, not the current working directory. The script ships with this skill and requires no repository checkout or third-party dependencies. It writes stdout only. A nonzero exit means invalid input: explain the contract failure and correct it before using results. Never relabel real data as synthetic to bypass the restriction. For approved non-synthetic aggregates, use another authorized calculation method and disclose that the bundled tool was not used. If execution is unavailable, disclose that and do not claim a verified report.
 
+## Registration-to-credit journey
+
+For registration → profile completion → KYC pass → bank details → credit approval, read [the journey contract](references/registration-credit.md) and use its [aggregate intake](assets/registration-credit-intake.json). These stage definitions and unknown counts must be confirmed before ranking or recommending an experiment. The intake is not input for the bundled nine-stage synthetic calculator; do not rename mismatched stages or mark actual data synthetic to make it run.
+
 ## Interpret the funnel
 
 1. Confirm nested unique-person counts and ordered windows. If data are event counts, independent monthly totals or overlapping loan populations, stop sequential-rate calculation and specify the aggregation fix.
-2. Show numerator, denominator, conversion and people not progressing for each transition. Rank acquisition-to-funding transitions by both count not progressing and observed conversion. Retain ties; neither ranking establishes an actionable bottleneck by itself.
+2. Show numerator, denominator, conversion and people not progressing for each transition. Rank the validated journey transitions by both count not progressing and observed conversion. For bundled nine-stage output, use its acquisition-to-funding investigation candidates. Retain ties; neither ranking establishes an actionable bottleneck by itself.
 3. Separate technical failure, user abandonment, pending work and policy rejection. Approval is a risk decision; repayment/repeat are delayed outcomes. Do not label them UX failures or recommend relaxing underwriting.
 4. Compare channels only with aligned windows, currency, attribution, risk mix and maturity. Lower funded CAC can coexist with worse contribution. Do not aggregate incompatible cohorts or infer loss severity from unrepaid counts.
 5. For each leading hypothesis, propose a disconfirming check, needed aggregate evidence and owner. Suggest an experiment only after instrumentation and safety prerequisites are clear.

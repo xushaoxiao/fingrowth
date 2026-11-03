@@ -26,6 +26,10 @@ The case shows why cheaper acquisition need not create more value:
 
 The report includes step denominators, investigation candidates by count and conversion, evidence gaps and maturity limits. The default command without `--format markdown` still outputs JSON. [Read the generated report](examples/lending/REPORT.md) or follow [the end-to-end walkthrough](docs/QUICKSTART.md).
 
+## First business workflow
+
+[Registration → profile → KYC → bank details → credit approval](examples/registration-credit/README.md) is the first selected business journey. Its aggregate intake keeps counts and observation windows unknown until supplied and reviewed. It is separate from the nine-stage synthetic calculator contract; no conversion or bottleneck is claimed yet.
+
 ## Use the Skills
 
 | Skill | Use it for | Deliverable |

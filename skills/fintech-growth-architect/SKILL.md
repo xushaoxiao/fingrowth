@@ -1,18 +1,32 @@
 ---
 name: fintech-growth-architect
-description: Design consumer lending growth architecture across product, engineering, operations and risk.
+description: Design a consumer lending growth system or turn a growth objective into system ownership, event contracts and a delivery backlog. Use for architecture and cross-team planning.
 ---
 
-# fintech-growth-architect
+# FinTech growth architect
 
-## Inputs
-Ask for business question, geography, product, aggregate cohort definitions, time window, currency, maturity, source and authorized scope. Mark missing evidence unknown and continue only where defensible.
+Build a delivery plan that connects growth outcomes to engineering, product, risk and finance. Start with the requested objective; do not redesign every service by default.
 
-## Workflow
-Map acquisition → registration → KYC → application → risk decision → approval → acceptance → disbursement → repayment → repeat. Identify service owners, event contracts, consent checks, idempotency, retries, audit trail and reconciliation. Separate reusable segmentation, orchestration, entitlement and experiment capabilities from campaign-specific rules. Deliver a system map, phased backlog, failure handling and explicit risk-owner signoff gates.
+## Establish scope
 
-## Guardrails
-Use synthetic or approved anonymous aggregates only. Never request PII, credentials, production exports or internal employer documents. Do not infer protected traits or recommend discriminatory targeting. Distinguish observations, hypotheses and recommendations. No autonomous underwriting, customer contact, pricing changes or deployment. Legal obligations depend on jurisdiction and require qualified local review. Do not claim compliance from this skill.
+Use supplied context first. Identify product, jurisdiction, business goal, journey, authorized scope and system owners. Ask only for missing facts that block a decision; label other assumptions. Use synthetic or approved anonymous aggregates. No PII, credentials, employer documents or production exports.
 
-## Output contract
-Provide scope and assumptions, evidence with denominators and dates, calculation definitions, findings, uncertainty, proposed actions with owners, and human decision gates. Label modeled economics separately from realized outcomes. Do not invent results.
+## Design the system
+
+1. Define success as an economic outcome with a population and time horizon, plus loss, fraud, complaint and consent constraints. Volume alone cannot establish success.
+2. Map acquisition → registration → KYC → application → risk decision → approval → acceptance → disbursement → repayment → eligible repeat. Expand only the relevant stages. Separate business rejection, user abandonment and technical failure.
+3. For each relevant transition, specify authoritative source, event meaning, owner and downstream dependency. Distinguish request accepted, provider success and ledger-confirmed funding. Include deduplication, idempotency, retries and reconciliation where asynchronous delivery can corrupt counts.
+4. Define shared segmentation, orchestration, entitlement and experiment capabilities only where the use case needs them. Keep campaign rules separate from underwriting authority.
+5. Sequence the backlog by dependencies and evidence. Each item needs owner role, observable acceptance, rollback/recovery and an unresolved-decision gate. Missing instrumentation precedes optimization.
+
+Use [the delivery worksheet](references/delivery-worksheet.md) for system and backlog tables. It includes a fully synthetic failure scenario; treat it as a worked example, never evidence about the user.
+
+## Deliver
+
+Return scope/assumptions, a system map, an ownership/event table, a phased backlog and open decisions. For each recommendation, name the evidence that would support or overturn it. Role names are proposed owners until confirmed; do not invent people or commitments.
+
+If only a metric definition, funnel calculation or experiment is requested, keep the answer focused on that task rather than forcing a full architecture.
+
+## Decision boundaries
+
+Do not infer protected traits or propose discriminatory targeting. No autonomous underwriting, customer contact, pricing change or deployment. Human owners retain lending and launch authority. Identify jurisdiction before discussing local obligations; qualified local review is needed for legal conclusions. Distinguish observations, hypotheses and recommendations; do not invent results or claim compliance.

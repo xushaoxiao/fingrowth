@@ -1,11 +1,34 @@
 # Roadmap and operations
 
-v0.1: four standalone skills, aggregate analyzer, synthetic lending case, tests and contributor policies. Reference implementation; release tagging and host evaluation remain separate milestones.
+## v0.1 — reference foundation
 
-v0.2: schema/version migration, event-level synthetic generator, cohort maturity checks and experiment power calculator. Acceptance: reproducible fixtures, failure tests and independently reviewed metric contracts.
+Implemented on main: four skill entrypoints, aggregate analyzer, synthetic lending case, calculation tests and contributor boundaries. Reference implementation; a successful CI run does not establish real-world outcomes or host compatibility.
 
-v0.3: benchmark task suite, bilingual examples and host-specific installation verification. No production integrations without a separate threat model and authorization.
+## Current iteration — make the existing skills usable
 
-Operations: weekly review of issue quality, reproducible usage reports and qualified practitioner feedback; monthly milestone review. Publish only verified project capabilities. Personal narrative: AI Engineering × AI Marketing × Global Growth × Entrepreneurship through transparent building. Do not claim employer endorsement, real lending uplift or regulatory certification.
+Proposed acceptance:
 
-Feishu sync pending: copy this roadmap, DECISIONS.md and case into an authorized workspace when a connector is available; preserve repository as source of truth meanwhile.
+- Each skill ships its own task-specific worksheet, dictionary, input contract or experiment card.
+- Funnel calculation produces JSON and readable Markdown, with denominators and distinct investigation rankings by count and conversion.
+- Invalid shape, dates, maturity, duplicate fields/cohorts and population ordering fail before output.
+- The funnel skill runs after a standalone copy, with no repository imports or third-party libraries.
+- The synthetic case report is reproducible in CI, alongside tests across Python 3.10, 3.11 and 3.13.
+
+These are implementation/portability checks. Actual host discovery, independent skill behavior evaluation, release tagging and user acceptance remain separate work.
+
+## Next — v0.2 measurement and experiment tooling
+
+1. Version the input schema and specify migration rules before adding event-level inputs.
+2. Generate reproducible synthetic events with deduplication, delayed/pending outcomes and loan-level exposure accounting. Acceptance: reconcile known events to cohort aggregates and reject incompatible populations.
+3. Verify maturity using schedules and observation windows rather than trusting a boolean. Acceptance: immature and censored exposures cannot support realized-economics claims.
+4. Add a power calculator for a narrowly specified experiment design. Acceptance: documented statistical assumptions, reference-value checks, invalid-input tests and separation of recruitment from risk follow-up.
+
+## Later — v0.3 evaluation and adoption
+
+Benchmark tasks for the four skills, bilingual case walkthroughs and host-specific installation/invocation checks. Recruit practitioner feedback before claiming production readiness. No production integrations without a separate threat model and authorization.
+
+## Operations
+
+Weekly review: reproducible usage reports, issue quality and qualified practitioner feedback. Monthly review: milestone acceptance and the next evidence gap. Publish only verified capabilities. Do not claim employer endorsement, real lending uplift or regulatory certification.
+
+Repository remains the source of truth. Feishu synchronization remains pending a confirmed writable workspace; no synchronization is claimed by this iteration.

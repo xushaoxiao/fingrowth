@@ -1,0 +1,17 @@
+{
+  "reference": "statsmodels.stats.proportion.power_proportions_2indep + scipy.optimize.brentq, ratio=1, alternative=two-sided, root bracket=[1,1e9], then ceil",
+  "statsmodels_version": "0.14.6",
+  "scipy_version": "1.18.1",
+  "cases": [
+    {"baseline": 0.6, "mde_absolute": 0.03, "alpha": 0.05, "target_power": 0.8,
+     "per_arm": 4129, "approximate_power": 0.8000351788374787, "approximate_power_one_fewer_per_arm": 0.7999401560815494},
+    {"baseline": 0.1, "mde_absolute": 0.02, "alpha": 0.05, "target_power": 0.8,
+     "per_arm": 3841, "approximate_power": 0.8000165286163742, "approximate_power_one_fewer_per_arm": 0.7999143736058019},
+    {"baseline": 0.5, "mde_absolute": 0.05, "alpha": 0.01, "target_power": 0.9,
+     "per_arm": 2966, "approximate_power": 0.9000039989167203, "approximate_power_one_fewer_per_arm": 0.8998897279435062},
+    {"baseline": 0.8, "mde_absolute": 0.01, "alpha": 0.05, "target_power": 0.9,
+     "per_arm": 32986, "approximate_power": 0.9000002921404002, "approximate_power_one_fewer_per_arm": 0.899991668362762},
+    {"baseline": 0.3, "mde_absolute": 0.005, "alpha": 0.1, "target_power": 0.95,
+     "per_arm": 182670, "approximate_power": 0.9500002368277315, "approximate_power_one_fewer_per_arm": 0.9499993081434581}
+  ]
+}

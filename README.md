@@ -50,6 +50,16 @@ npm run dev
 
 Read [the dashboard guide](docs/DASHBOARD.md) and [data contract](docs/DATA-CONTRACT.md). The app runs locally and exports as static files; imported data stays in tab memory.
 
+## Plan one binary experiment (next iteration)
+
+The working branch adds a dependency-free power planner for independent people, 1:1 allocation, a two-sided fixed-horizon test and one binary ITT primary outcome:
+
+```sh
+python3 scripts/plan_power.py --baseline 0.60 --mde-absolute 0.03 --alpha 0.05 --power 0.80 --eligible-per-day 400 --primary-followup-days 7 --format markdown
+```
+
+These invented assumptions require 4,129 people per arm. Recruitment and primary follow-up are separate from delayed credit-risk review. Calculating power does not approve a launch or demonstrate minimum business value. Read the [synthetic experiment card](examples/experiments/KYC-POWER.md) and [method limits](skills/growth-experiment-design/references/power-planning.md). This addition is not in the frozen v0.1.0 release assets.
+
 ## How it works
 
 Synthetic aggregate cohorts → validated inputs → explainable metrics → evidence-led investigation → human-reviewed experiment.

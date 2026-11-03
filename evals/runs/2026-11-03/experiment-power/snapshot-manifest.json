@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-03",
+  "method": "separate explicitly invoked Agent, initial task followed by bounded final-source re-execution",
+  "context_limit": "Evaluator inherited session conversation; not blinded. Exact model identity is not independently recorded.",
+  "scope": "invented KYC binary-experiment planning only; no live lending or business-path acceptance",
+  "final_source_sha256": {
+    "skills/growth-experiment-design/SKILL.md": "ed1a8692b64d187f94ee5df8a022f8fdb7d838a17a8afa9d4b0cf2295f7c45c7",
+    "skills/growth-experiment-design/references/power-planning.md": "8b619532c8beacce941a518f4450c8a2e1036401204b6b4389545f283ae55e8c",
+    "skills/growth-experiment-design/assets/experiment-card.md": "8e7939d43ae4dc4f175dd353652b994d7edf0e8f547644f261aa95652591e0d2",
+    "skills/growth-experiment-design/scripts/plan_power.py": "b0441adcfbcc84bfab086d79f32b995f870e0ef23c4cd6d20e9536de80b40dc7",
+    "scripts/plan_power.py": "0e90e3e98fe413432cff826de1a54e68defd7873d4e0be7fb1f548f32bde8c2b"
+  },
+  "initial_script_sha256": "4304cf48ea7bb0644e0024e938e35a51f0b10609e66e936660b4c20604004675",
+  "original_artifact_sha256": {
+    "answer.md": "4ea5f0b5e15685fff3a72f69c0f7ae69a50173fa0fae544b471d49123dc49d69",
+    "execution.json": "dd137f027d74b53d20903f75b03346ca50b26f46c2b3d1536027d9999e71abc3",
+    "followup/execution.json": "3cc73f0d4e40eda0d279e1507e54409634307bc0d1e621c9140f92c0d454fd1d",
+    "followup/json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "followup/markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "followup/power-plan.json": "6427e7caeb87b1d4274ffc0588fb486b7ce408ca1d015b438ae5338457bd510d",
+    "followup/power-plan.md": "68258e80e26ca2319621e79e51d2f95341073e158e6a47db501fb230fba1782c",
+    "followup/review.md": "b0e84a5f45b41538305895900799e77753c9778cc3894fc924ac21fe2e51226a",
+    "power-plan.json": "a97a51ff44723d750d17b1cfd7209e7917b183dc683b051a1b48abcb94a1f826",
+    "power-plan.md": "5e555053661231d366e0ea12cc1bfe99f0f4bf05a5fc351b99aba3185e3e39cb"
+  },
+  "public_artifact_sha256": {
+    "README.md": "8af919001447cdad67b201fdb4424e3716cb25df4899a9952db49fb9c1d4db72",
+    "TASK.md": "a213f978c9841209eb764db441504ddf87d98fa0985943bb939d88909ecc89b5",
+    "answer.md": "4ea5f0b5e15685fff3a72f69c0f7ae69a50173fa0fae544b471d49123dc49d69",
+    "execution.json": "dd137f027d74b53d20903f75b03346ca50b26f46c2b3d1536027d9999e71abc3",
+    "followup/TASK.md": "f25b8e8e3474814bfe4213e585b7309b3dd4cc587e9cef418ebeceee783812e1",
+    "followup/execution.json": "986eeee1ae83d7a51f7d30e70af8b23224f9477b2fc03027267f4607cc494888",
+    "followup/json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "followup/markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "followup/power-plan.json": "6427e7caeb87b1d4274ffc0588fb486b7ce408ca1d015b438ae5338457bd510d",
+    "followup/power-plan.md": "68258e80e26ca2319621e79e51d2f95341073e158e6a47db501fb230fba1782c",
+    "followup/review.md": "b0e84a5f45b41538305895900799e77753c9778cc3894fc924ac21fe2e51226a",
+    "power-plan.json": "a97a51ff44723d750d17b1cfd7209e7917b183dc683b051a1b48abcb94a1f826",
+    "power-plan.md": "5e555053661231d366e0ea12cc1bfe99f0f4bf05a5fc351b99aba3185e3e39cb"
+  },
+  "sanitized_public_files": {
+    "TASK.md": "task representation with harness locations removed; raw prompt bytes not archived here",
+    "followup/TASK.md": "task representation with harness locations removed; raw prompt bytes not archived here",
+    "followup/execution.json": "executable and script path normalized; public-copy note and original execution hash added"
+  },
+  "result": "Observed task retained blocked-before-launch card and unknown delayed-risk review; final-source calculation and explanation rechecked. Not a launch approval."
+}

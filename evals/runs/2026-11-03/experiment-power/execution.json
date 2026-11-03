@@ -1,0 +1,13 @@
+{
+  "python_version": "3.14.5",
+  "script_sha256": "4304cf48ea7bb0644e0024e938e35a51f0b10609e66e936660b4c20604004675",
+  "commands_exit_status": {
+    "json": 0,
+    "markdown": 0
+  },
+  "artifacts": {
+    "answer.md": "4ea5f0b5e15685fff3a72f69c0f7ae69a50173fa0fae544b471d49123dc49d69",
+    "power-plan.json": "a97a51ff44723d750d17b1cfd7209e7917b183dc683b051a1b48abcb94a1f826",
+    "power-plan.md": "5e555053661231d366e0ea12cc1bfe99f0f4bf05a5fc351b99aba3185e3e39cb"
+  }
+}

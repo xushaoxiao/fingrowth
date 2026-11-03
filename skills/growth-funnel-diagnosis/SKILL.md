@@ -27,7 +27,7 @@ For registration → profile completion → KYC pass → bank details → credit
 ## Interpret the funnel
 
 1. Confirm nested unique-person counts and ordered windows. If data are event counts, independent monthly totals or overlapping loan populations, stop sequential-rate calculation and specify the aggregation fix.
-2. Show numerator, denominator, conversion and people not progressing for each transition. Rank acquisition-to-funding transitions by both count not progressing and observed conversion. Retain ties; neither ranking establishes an actionable bottleneck by itself.
+2. Show numerator, denominator, conversion and people not progressing for each transition. Rank the validated journey transitions by both count not progressing and observed conversion. For bundled nine-stage output, use its acquisition-to-funding investigation candidates. Retain ties; neither ranking establishes an actionable bottleneck by itself.
 3. Separate technical failure, user abandonment, pending work and policy rejection. Approval is a risk decision; repayment/repeat are delayed outcomes. Do not label them UX failures or recommend relaxing underwriting.
 4. Compare channels only with aligned windows, currency, attribution, risk mix and maturity. Lower funded CAC can coexist with worse contribution. Do not aggregate incompatible cohorts or infer loss severity from unrepaid counts.
 5. For each leading hypothesis, propose a disconfirming check, needed aggregate evidence and owner. Suggest an experiment only after instrumentation and safety prerequisites are clear.

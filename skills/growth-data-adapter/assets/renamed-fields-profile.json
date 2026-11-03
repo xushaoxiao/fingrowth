@@ -1,0 +1,37 @@
+{
+  "name": "Example renamed-field source adapter",
+  "description": "Synthetic renamed-field mapping example. Replace source metadata and reconcile metric meanings before adapting another authorized aggregate export.",
+  "data_mode": "synthetic",
+  "provenance": {
+    "source": "Synthetic renamed-field example: metadata, populations and economics objects",
+    "extracted_at": "2026-11-03T00:00:00Z",
+    "timezone": "UTC",
+    "cohort_definition": "Synthetic January 2026 acquisition cohorts; nested unique people with one first loan. Observation cutoff is 2026-10-31. Full repayment precedes repeat in this simplified model; additional repeat-loan exposures are excluded. Maturity is supplied metadata, not verified from schedules.",
+    "approval_reference": null
+  },
+  "field_map": {
+    "cohort": "metadata.cohort",
+    "window": "metadata.window",
+    "outcome_as_of": "metadata.outcome_as_of",
+    "currency": "metadata.currency",
+    "synthetic": "metadata.synthetic",
+    "mature": "metadata.mature",
+    "acquisition_cost": "economics.acquisition_cost",
+    "revenue": "economics.revenue",
+    "credit_loss": "economics.credit_loss",
+    "funding_cost": "economics.funding_cost",
+    "servicing_cost": "economics.servicing_cost",
+    "incentives": "economics.incentives",
+    "counts.acquired": "populations.acquired",
+    "counts.registered": "populations.registered",
+    "counts.kyc": "populations.kyc",
+    "counts.applied": "populations.applied",
+    "counts.approved": "populations.approved",
+    "counts.accepted": "populations.accepted",
+    "counts.disbursed": "populations.disbursed",
+    "counts.repaid": "populations.repaid",
+    "counts.repeat": "populations.repeat"
+  },
+  "experiments": [],
+  "initiatives": []
+}

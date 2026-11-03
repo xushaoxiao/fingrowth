@@ -1,0 +1,52 @@
+[
+  {
+    "cohort": "baseline",
+    "window": "2026-01-01/2026-01-31",
+    "outcome_as_of": "2026-10-31",
+    "currency": "USD",
+    "synthetic": true,
+    "mature": true,
+    "counts": {
+      "acquired": 10000,
+      "registered": 6000,
+      "kyc": 4800,
+      "applied": 3600,
+      "approved": 1800,
+      "accepted": 1500,
+      "disbursed": 1400,
+      "repaid": 1300,
+      "repeat": 400
+    },
+    "acquisition_cost": 14000,
+    "revenue": 42000,
+    "credit_loss": 14000,
+    "funding_cost": 5000,
+    "servicing_cost": 3000,
+    "incentives": 2000
+  },
+  {
+    "cohort": "cheap-channel",
+    "window": "2026-01-01/2026-01-31",
+    "outcome_as_of": "2026-10-31",
+    "currency": "USD",
+    "synthetic": true,
+    "mature": true,
+    "counts": {
+      "acquired": 12000,
+      "registered": 6500,
+      "kyc": 4600,
+      "applied": 3500,
+      "approved": 1800,
+      "accepted": 1500,
+      "disbursed": 1400,
+      "repaid": 1100,
+      "repeat": 350
+    },
+    "acquisition_cost": 10000,
+    "revenue": 42000,
+    "credit_loss": 23000,
+    "funding_cost": 5000,
+    "servicing_cost": 3000,
+    "incentives": 2000
+  }
+]

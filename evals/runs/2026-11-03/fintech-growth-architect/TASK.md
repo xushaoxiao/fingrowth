@@ -1,0 +1,7 @@
+Use the fintech-growth-architect skill in this directory to complete this synthetic consumer lending planning task. Respond in English.
+
+The product manager wants a two-sprint delivery plan to recover first-funded-user volume without changing underwriting. A weekly synthetic dashboard shows KYC completions fell from 4,800 to 3,600; application volume fell from 3,600 to 2,700. Provider timeout share rose from 2% to 12% during the same week, and a mobile release shipped midweek. Attribution and risk mix have not been reconciled. Jurisdiction and outcome maturity are not supplied.
+
+KYC retries generate multiple request events per person. Payments currently count an HTTP 202 response from the disbursement provider as funded. The provider can time out after accepting a request, and callbacks can be duplicated. The payments ledger is available as an authoritative completion source but is not wired into the growth dashboard. There is no experiment assignment service yet. Roles available: growth product, identity engineering, payments engineering, data, risk, finance and operations; no named owners or delivery estimates have been approved.
+
+Deliver the architecture and smallest useful phased backlog, event/source ownership, recovery behavior, acceptance checks and open decisions. Fit it into the proposed two-sprint planning frame while making feasibility assumptions explicit. Explain what can be concluded now and what requires more evidence.

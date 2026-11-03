@@ -1,0 +1,50 @@
+[
+  {
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/growth-funnel-diagnosis/scripts/analyze.py",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/cohorts.json",
+      "--format",
+      "json"
+    ],
+    "exit_code": 0,
+    "stdout": "cohorts-calculator.json",
+    "stderr": "cohorts-calculator-json.stderr.txt"
+  },
+  {
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/growth-funnel-diagnosis/scripts/analyze.py",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/cohorts.json",
+      "--format",
+      "markdown"
+    ],
+    "exit_code": 0,
+    "stdout": "cohorts-calculator.md",
+    "stderr": "cohorts-calculator-markdown.stderr.txt"
+  },
+  {
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/growth-funnel-diagnosis/scripts/analyze.py",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/large-amounts.json",
+      "--format",
+      "json"
+    ],
+    "exit_code": 0,
+    "stdout": "large-amounts-calculator.json",
+    "stderr": "large-amounts-calculator-json.stderr.txt"
+  },
+  {
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/growth-funnel-diagnosis/scripts/analyze.py",
+      "/private/var/folders/01/r40ssb4n12jbpllq64zf2zpm070h37/T/fingrowth-acceptance-sjx5r8o2/rerun-funnel-2/large-amounts.json",
+      "--format",
+      "markdown"
+    ],
+    "exit_code": 0,
+    "stdout": "large-amounts-calculator.md",
+    "stderr": "large-amounts-calculator-markdown.stderr.txt"
+  }
+]

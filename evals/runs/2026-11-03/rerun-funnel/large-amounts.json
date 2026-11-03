@@ -1,0 +1,27 @@
+[
+  {
+    "cohort": "large-synthetic-cost-cancellation",
+    "window": "2026-01-01/2026-01-31",
+    "outcome_as_of": "2026-10-31",
+    "currency": "USD",
+    "synthetic": true,
+    "mature": true,
+    "counts": {
+      "acquired": 10000,
+      "registered": 6000,
+      "kyc": 4800,
+      "applied": 3600,
+      "approved": 1800,
+      "accepted": 1500,
+      "disbursed": 1400,
+      "repaid": 1300,
+      "repeat": 400
+    },
+    "acquisition_cost": 10000000000000000000000000001,
+    "revenue": 10000000000000000000000000000,
+    "credit_loss": 0,
+    "funding_cost": 0,
+    "servicing_cost": 0,
+    "incentives": 0
+  }
+]

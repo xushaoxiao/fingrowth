@@ -1,0 +1,500 @@
+/* Brand-inspired palettes only. The existing sage UI remains the Default.
+   Every visual override is scoped away from data-brand="default". */
+html[data-brand]:not([data-brand="default"]) {
+  --t-positive: #236538;
+  --t-positive-bg: #edf7ee;
+  --t-negative: #b12032;
+  --t-negative-bg: #fff0f1;
+  --t-warning: #805312;
+  --t-warning-bg: #fff4dc;
+  --t-status-dot: #29834a;
+  --accent: var(--t-accent);
+  --accent-hover: var(--t-accent-hover);
+  --accent-foreground: var(--t-on-accent);
+  --accent-soft: var(--t-soft);
+  --accent-soft-foreground: var(--t-accent);
+  --background: var(--t-bg);
+  --foreground: var(--t-text);
+  --border: var(--t-border);
+  --muted: var(--t-muted);
+  --surface: var(--t-surface);
+  --surface-foreground: var(--t-text);
+  --surface-secondary: var(--t-soft);
+  --surface-secondary-foreground: var(--t-text);
+  --surface-tertiary: var(--t-table-head);
+  --surface-tertiary-foreground: var(--t-text);
+  --overlay: var(--t-surface);
+  --overlay-foreground: var(--t-text);
+  --default: var(--t-soft);
+  --default-hover: var(--t-hover);
+  --default-foreground: var(--t-text);
+  --field-background: var(--t-surface);
+  --field-foreground: var(--t-text);
+  --field-placeholder: var(--t-muted);
+  --field-hover: var(--t-soft);
+  --field-focus: var(--t-surface);
+  --field-border: var(--t-border);
+  --field-border-hover: var(--t-muted);
+  --field-border-focus: var(--t-accent);
+  --focus: var(--t-accent);
+  --success: var(--t-positive);
+  --success-foreground: var(--t-surface);
+  --success-soft: var(--t-positive-bg);
+  --success-soft-foreground: var(--t-positive);
+  --danger: var(--t-negative);
+  --danger-foreground: var(--t-surface);
+  --danger-soft: var(--t-negative-bg);
+  --danger-soft-foreground: var(--t-negative);
+  --warning: var(--t-warning);
+  --warning-foreground: var(--t-surface);
+  --warning-soft: var(--t-warning-bg);
+  --warning-soft-foreground: var(--t-warning);
+  color-scheme: light;
+}
+
+/* Tesla: clear white surfaces, graphite navigation and a disciplined red accent. */
+html[data-brand="tesla"]:not([data-brand="default"]) {
+  --brand-accent: #c9142f;
+  --t-accent: #c9142f;
+  --t-accent-hover: #a70d24;
+  --t-on-accent: #ffffff;
+  --t-bg: #f5f5f6;
+  --t-surface: #ffffff;
+  --t-text: #181b20;
+  --t-muted: #5b626d;
+  --t-border: #dedfe3;
+  --t-soft: #fff0f3;
+  --t-soft-border: #edcdd3;
+  --t-hover: #f6e1e6;
+  --t-table-head: #f4f4f6;
+  --t-sidebar: #111214;
+  --t-sidebar-text: #d3d7dd;
+  --t-sidebar-muted: #a1a7b1;
+  --t-sidebar-border: #383b42;
+  --t-sidebar-hover: #2b2328;
+  --t-sidebar-selected: #511624;
+  --t-sidebar-selected-border: #a43b50;
+  --t-sidebar-accent: #ff9aaa;
+  --t-track: #f2e8eb;
+  --t-bar-0: #cc6576;
+  --t-bar-1: #c75065;
+  --t-bar-2: #c33b55;
+  --t-bar-3: #bd2844;
+  --t-bar-4: #b31a37;
+  --t-bar-5: #a4132d;
+  --t-bar-6: #880c23;
+  --t-cost: #9c6670;
+}
+
+/* NVIDIA: deep forest-black surfaces and readable, electric green controls. */
+html[data-brand="nvidia"]:not([data-brand="default"]) {
+  --brand-accent: #9bdb36;
+  --t-accent: #9bdb36;
+  --t-accent-hover: #b2ec5c;
+  --t-on-accent: #142006;
+  --t-bg: #0e120f;
+  --t-surface: #171e18;
+  --t-text: #f1f7ed;
+  --t-muted: #b3c1a9;
+  --t-border: #354331;
+  --t-soft: #26351e;
+  --t-soft-border: #4c6335;
+  --t-hover: #344626;
+  --t-table-head: #202b1c;
+  --t-sidebar: #070b08;
+  --t-sidebar-text: #d0ddc5;
+  --t-sidebar-muted: #a7b79c;
+  --t-sidebar-border: #35452c;
+  --t-sidebar-hover: #1c2b13;
+  --t-sidebar-selected: #2a4015;
+  --t-sidebar-selected-border: #628b37;
+  --t-sidebar-accent: #c3f487;
+  --t-track: #27331f;
+  --t-bar-0: #82a95c;
+  --t-bar-1: #8ab957;
+  --t-bar-2: #96c951;
+  --t-bar-3: #a3d94b;
+  --t-bar-4: #afe44d;
+  --t-bar-5: #bcef61;
+  --t-bar-6: #d0f58c;
+  --t-cost: #b0a777;
+  --t-positive: #9fdeb0;
+  --t-positive-bg: #203b2b;
+  --t-negative: #ffb3bb;
+  --t-negative-bg: #44262d;
+  --t-warning: #ffd894;
+  --t-warning-bg: #3b2d14;
+  --t-status-dot: #9fdeb0;
+  color-scheme: dark;
+}
+
+/* AMD: warm charcoal with vivid crimson; financial states keep their semantics. */
+html[data-brand="amd"]:not([data-brand="default"]) {
+  --brand-accent: #ff6078;
+  --t-accent: #ff6078;
+  --t-accent-hover: #ff8093;
+  --t-on-accent: #25070e;
+  --t-bg: #121115;
+  --t-surface: #1e1c22;
+  --t-text: #faf4f7;
+  --t-muted: #c5b7be;
+  --t-border: #4a3741;
+  --t-soft: #39242d;
+  --t-soft-border: #764154;
+  --t-hover: #4b2d3a;
+  --t-table-head: #2b2229;
+  --t-sidebar: #0a090c;
+  --t-sidebar-text: #e3d5dc;
+  --t-sidebar-muted: #bcaab4;
+  --t-sidebar-border: #44303c;
+  --t-sidebar-hover: #2c1923;
+  --t-sidebar-selected: #4f202f;
+  --t-sidebar-selected-border: #a94c66;
+  --t-sidebar-accent: #ffabbc;
+  --t-track: #35232d;
+  --t-bar-0: #c77d8c;
+  --t-bar-1: #d87a8d;
+  --t-bar-2: #e8778e;
+  --t-bar-3: #f5738b;
+  --t-bar-4: #ff6c85;
+  --t-bar-5: #ff8598;
+  --t-bar-6: #ffadba;
+  --t-cost: #c3a689;
+  --t-positive: #9fdeb0;
+  --t-positive-bg: #203b2b;
+  --t-negative: #ffb3bb;
+  --t-negative-bg: #44262d;
+  --t-warning: #ffd894;
+  --t-warning-bg: #3b2d14;
+  --t-status-dot: #9fdeb0;
+  color-scheme: dark;
+}
+
+/* Meta: cool, open surfaces with saturated blue anchors. */
+html[data-brand="meta"]:not([data-brand="default"]) {
+  --brand-accent: #0866d9;
+  --t-accent: #0866d9;
+  --t-accent-hover: #0753b1;
+  --t-on-accent: #ffffff;
+  --t-bg: #f3f7fc;
+  --t-surface: #ffffff;
+  --t-text: #172b46;
+  --t-muted: #52647c;
+  --t-border: #d8e2ef;
+  --t-soft: #eaf2ff;
+  --t-soft-border: #c7daf5;
+  --t-hover: #dceaff;
+  --t-table-head: #f0f5fc;
+  --t-sidebar: #0a1c35;
+  --t-sidebar-text: #d1e0f4;
+  --t-sidebar-muted: #a3b9d6;
+  --t-sidebar-border: #314865;
+  --t-sidebar-hover: #142e50;
+  --t-sidebar-selected: #163c6c;
+  --t-sidebar-selected-border: #4278b7;
+  --t-sidebar-accent: #a4d3ff;
+  --t-track: #eaf0f8;
+  --t-bar-0: #668fc4;
+  --t-bar-1: #527fbc;
+  --t-bar-2: #3e73b7;
+  --t-bar-3: #2b68b4;
+  --t-bar-4: #175eaf;
+  --t-bar-5: #0c54a4;
+  --t-bar-6: #084487;
+  --t-cost: #8999af;
+}
+
+/* Google: blue controls with a varied, deeper four-colour chart palette. */
+html[data-brand="google"]:not([data-brand="default"]) {
+  --brand-accent: #1967d2;
+  --t-accent: #1967d2;
+  --t-accent-hover: #1557b1;
+  --t-on-accent: #ffffff;
+  --t-bg: #f8fafd;
+  --t-surface: #ffffff;
+  --t-text: #202b3b;
+  --t-muted: #596474;
+  --t-border: #dce2eb;
+  --t-soft: #edf3ff;
+  --t-soft-border: #cbdcf8;
+  --t-hover: #dde9ff;
+  --t-table-head: #f1f4f9;
+  --t-sidebar: #17253d;
+  --t-sidebar-text: #dbe4f3;
+  --t-sidebar-muted: #aabbd5;
+  --t-sidebar-border: #3c4c67;
+  --t-sidebar-hover: #233751;
+  --t-sidebar-selected: #294065;
+  --t-sidebar-selected-border: #597aa8;
+  --t-sidebar-accent: #b5d1ff;
+  --t-track: #edf1f7;
+  --t-bar-0: #3576d0;
+  --t-bar-1: #28883f;
+  --t-bar-2: #b87900;
+  --t-bar-3: #d53429;
+  --t-bar-4: #2865b7;
+  --t-bar-5: #26733a;
+  --t-bar-6: #a52c26;
+  --t-cost: #9c8259;
+}
+
+/* Amazon: warm canvas, navy navigation and amber-orange primary actions. */
+html[data-brand="amazon"]:not([data-brand="default"]) {
+  --brand-accent: #a65300;
+  --t-accent: #a65300;
+  --t-accent-hover: #934a00;
+  --t-on-accent: #ffffff;
+  --t-bg: #f6f5f2;
+  --t-surface: #ffffff;
+  --t-text: #202f3d;
+  --t-muted: #5b6470;
+  --t-border: #e1ddd5;
+  --t-soft: #fff3df;
+  --t-soft-border: #ead4af;
+  --t-hover: #f9e5c2;
+  --t-table-head: #f7f3ed;
+  --t-sidebar: #172332;
+  --t-sidebar-text: #dce2eb;
+  --t-sidebar-muted: #acbacb;
+  --t-sidebar-border: #3b4b5e;
+  --t-sidebar-hover: #34372f;
+  --t-sidebar-selected: #614118;
+  --t-sidebar-selected-border: #af7e3b;
+  --t-sidebar-accent: #ffd49c;
+  --t-track: #f2ede5;
+  --t-bar-0: #b7853c;
+  --t-bar-1: #b47a29;
+  --t-bar-2: #af6e1b;
+  --t-bar-3: #a96512;
+  --t-bar-4: #a15b09;
+  --t-bar-5: #954f03;
+  --t-bar-6: #7d4100;
+  --t-cost: #8c8c7a;
+}
+
+/* Uber: clean monochrome hierarchy; only meaning-bearing status colours remain. */
+html[data-brand="uber"]:not([data-brand="default"]) {
+  --brand-accent: #111111;
+  --t-accent: #111111;
+  --t-accent-hover: #333333;
+  --t-on-accent: #ffffff;
+  --t-bg: #f5f5f5;
+  --t-surface: #ffffff;
+  --t-text: #141414;
+  --t-muted: #606060;
+  --t-border: #dedede;
+  --t-soft: #ededed;
+  --t-soft-border: #d6d6d6;
+  --t-hover: #e0e0e0;
+  --t-table-head: #f2f2f2;
+  --t-sidebar: #000000;
+  --t-sidebar-text: #dedede;
+  --t-sidebar-muted: #b0b0b0;
+  --t-sidebar-border: #393939;
+  --t-sidebar-hover: #242424;
+  --t-sidebar-selected: #333333;
+  --t-sidebar-selected-border: #666666;
+  --t-sidebar-accent: #ffffff;
+  --t-track: #eeeeee;
+  --t-bar-0: #838383;
+  --t-bar-1: #727272;
+  --t-bar-2: #616161;
+  --t-bar-3: #505050;
+  --t-bar-4: #3e3e3e;
+  --t-bar-5: #2c2c2c;
+  --t-bar-6: #171717;
+  --t-cost: #808080;
+}
+
+html[data-brand]:not([data-brand="default"]) body {
+  background: var(--t-bg);
+  color: var(--t-text);
+}
+html[data-brand]:not([data-brand="default"]) :is(.topbar, .context-bar, .panel, .kpi-card, .import-dialog, .select__popover) {
+  background: var(--t-surface);
+  color: var(--t-text);
+  border-color: var(--t-border);
+}
+html[data-brand]:not([data-brand="default"]) :is(.kpi-card.featured, .leader-card, .next-action, .adapter-flow) {
+  background: var(--t-soft);
+  border-color: var(--t-soft-border);
+}
+html[data-brand]:not([data-brand="default"]) .sidebar {
+  background: var(--t-sidebar);
+  color: var(--t-sidebar-text);
+}
+html[data-brand]:not([data-brand="default"]) :is(.brand, .workspace-label strong, .skill-connection strong) {
+  color: #ffffff;
+}
+html[data-brand]:not([data-brand="default"]) :is(.brand-dot, .nav-button.active .icon, .tiny-chevron) {
+  color: var(--t-sidebar-accent);
+}
+html[data-brand]:not([data-brand="default"]) .brand-mark span {
+  background: var(--t-sidebar-accent);
+}
+html[data-brand="google"]:not([data-brand="default"]) .brand-mark span:nth-child(1) {
+  background: #8ab4f8;
+}
+html[data-brand="google"]:not([data-brand="default"]) .brand-mark span:nth-child(2) {
+  background: #81c995;
+}
+html[data-brand="google"]:not([data-brand="default"]) .brand-mark span:nth-child(3) {
+  background: #fdd663;
+}
+html[data-brand]:not([data-brand="default"]) :is(.workspace-label, .skill-connection) {
+  border-color: var(--t-sidebar-border);
+}
+html[data-brand]:not([data-brand="default"]) .skill-connection {
+  background: var(--t-sidebar-hover);
+}
+html[data-brand]:not([data-brand="default"]) :is(.workspace-label div > span, .nav-title, .skill-connection p, .version) {
+  color: var(--t-sidebar-muted);
+}
+html[data-brand]:not([data-brand="default"]) :is(.workspace-avatar, .nav-count) {
+  background: var(--t-sidebar-selected);
+  border-color: var(--t-sidebar-selected-border);
+  color: var(--t-sidebar-accent);
+}
+html[data-brand]:not([data-brand="default"]) .nav-button {
+  --button-bg-hover: var(--t-sidebar-hover);
+  --button-bg-pressed: var(--t-sidebar-hover);
+  --button-fg: var(--t-sidebar-text);
+  color: var(--t-sidebar-text);
+  background: transparent;
+}
+html[data-brand]:not([data-brand="default"]) .nav-button:is(:hover, [data-hovered="true"]) {
+  background: var(--t-sidebar-hover);
+}
+html[data-brand]:not([data-brand="default"]) .nav-button.active {
+  background: var(--t-sidebar-selected);
+  color: var(--t-sidebar-accent);
+  border-color: var(--t-sidebar-selected-border);
+}
+html[data-brand]:not([data-brand="default"]) .skill-connection .button {
+  --button-bg-hover: var(--t-sidebar-selected);
+  --button-fg: var(--t-sidebar-accent);
+  color: var(--t-sidebar-accent);
+}
+html[data-brand]:not([data-brand="default"]) :is(h1, .breadcrumb strong, .kpi-value, .panel .card__title, .funnel-caption strong, .leader-card h3, .leader-card strong, .data-table .table__cell strong, .decision-list h3, .definition-list strong, .adapter-flow h3, .import-dialog .modal__heading) {
+  color: var(--t-text);
+}
+html[data-brand]:not([data-brand="default"]) :is(.breadcrumb, .breadcrumb span, .local-status, .page-heading p, .heading-eyebrow, .context-meta, .kpi-label, .kpi-label .icon, .kpi-card p, .panel .card__description, .funnel-caption, .bar-rate, .eyebrow, .leader-card p, .insight-note p, .footnote, .decision-list p, .page-footer, .definition-list > div, .economics-bars > div > div:first-child, .item-index, .experiment-field > span, .next-action > span, .source-description > span, .experiment-field p, .experiment-field li, .next-action p, .source-description p, .owner-badge, .adapter-flow p, .adapter-flow > div > span, .empty, .import-dialog .modal__header p, .import-dialog .label) {
+  color: var(--t-muted);
+}
+html[data-brand]:not([data-brand="default"]) :is(.context-meta > span:nth-child(2), .panel-header .button, .mini-spark, .adapter-flow .icon) {
+  color: var(--t-accent);
+}
+html[data-brand]:not([data-brand="default"]) .context-divider {
+  background: var(--t-border);
+}
+html[data-brand]:not([data-brand="default"]) :is(.page-footer, .contribution-total, .definition-list > div, .decision-list > div, .experiment-card > .card__footer) {
+  border-color: var(--t-border);
+}
+html[data-brand]:not([data-brand="default"]) .contribution-total {
+  color: var(--t-text);
+}
+html[data-brand]:not([data-brand="default"]) .user-avatar {
+  background: var(--t-soft);
+  color: var(--t-accent);
+  border-color: var(--t-soft-border);
+}
+html[data-brand]:not([data-brand="default"]) .import-button {
+  --button-bg: var(--t-accent);
+  --button-bg-hover: var(--t-accent-hover);
+  --button-bg-pressed: var(--t-accent-hover);
+  --button-fg: var(--t-on-accent);
+  background: var(--t-accent);
+  color: var(--t-on-accent);
+}
+html[data-brand]:not([data-brand="default"]) .import-button:is(:hover, [data-hovered="true"], [data-pressed="true"]) {
+  background: var(--t-accent-hover);
+}
+html[data-brand]:not([data-brand="default"]) :is(.cohort-select, .theme-select) .select__trigger {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+  color: var(--t-text);
+}
+html[data-brand]:not([data-brand="default"]) .select__popover {
+  box-shadow: 0 10px 32px #00000030;
+}
+html[data-brand]:not([data-brand="default"]) .list-box-item {
+  color: var(--t-text);
+}
+html[data-brand]:not([data-brand="default"]) .list-box-item:is(:hover, [data-hovered="true"], [aria-selected="true"], [data-selected="true"]) {
+  background: var(--t-soft);
+  color: var(--t-accent);
+}
+html[data-brand]:not([data-brand="default"]) .list-box-item__indicator {
+  color: var(--t-accent);
+}
+html[data-brand]:not([data-brand="default"]) .bar-track {
+  background: var(--t-track);
+}
+html[data-brand]:not([data-brand="default"]) .bar-fill {
+  background: var(--t-accent);
+}
+html[data-brand]:not([data-brand="default"]) .bar-0 { background: var(--t-bar-0); }
+html[data-brand]:not([data-brand="default"]) .bar-1 { background: var(--t-bar-1); }
+html[data-brand]:not([data-brand="default"]) .bar-2 { background: var(--t-bar-2); }
+html[data-brand]:not([data-brand="default"]) .bar-3 { background: var(--t-bar-3); }
+html[data-brand]:not([data-brand="default"]) .bar-4 { background: var(--t-bar-4); }
+html[data-brand]:not([data-brand="default"]) .bar-5 { background: var(--t-bar-5); }
+html[data-brand]:not([data-brand="default"]) .bar-6 { background: var(--t-bar-6); }
+html[data-brand]:not([data-brand="default"]) .cost-fill { background: var(--t-cost); }
+html[data-brand]:not([data-brand="default"]) .data-table .table__column {
+  background: var(--t-table-head);
+  color: var(--t-muted);
+}
+html[data-brand]:not([data-brand="default"]) .data-table .table__cell {
+  color: var(--t-muted);
+  border-color: var(--t-border);
+}
+html[data-brand]:not([data-brand="default"]) .data-table .table__row:is(:hover, [data-hovered="true"]) {
+  background: var(--t-soft);
+}
+html[data-brand]:not([data-brand="default"]) .pill.neutral {
+  background: var(--t-soft);
+  color: var(--t-muted);
+}
+html[data-brand]:not([data-brand="default"]) :is(.pill.sage, .notice) {
+  background: var(--t-positive-bg);
+  color: var(--t-positive);
+  border-color: var(--t-positive);
+}
+html[data-brand]:not([data-brand="default"]) :is(.pill.amber, .callout) {
+  background: var(--t-warning-bg);
+  color: var(--t-warning);
+  border-color: var(--t-warning-bg);
+}
+html[data-brand]:not([data-brand="default"]) .negative {
+  color: var(--t-negative) !important;
+}
+html[data-brand]:not([data-brand="default"]) .positive {
+  color: var(--t-positive) !important;
+}
+html[data-brand]:not([data-brand="default"]) .status-dot {
+  background: var(--t-status-dot);
+}
+html[data-brand]:not([data-brand="default"]) .json-input {
+  background: var(--t-bg);
+  border-color: var(--t-border);
+  color: var(--t-text);
+  caret-color: var(--t-accent);
+}
+html[data-brand]:not([data-brand="default"]) .json-input::placeholder {
+  color: var(--t-muted);
+  opacity: 1;
+}
+html[data-brand]:not([data-brand="default"]) .error-message {
+  background: var(--t-negative-bg);
+  color: var(--t-negative);
+}
+html[data-brand]:not([data-brand="default"]) :is(button, a, input, textarea, [role="option"]):focus-visible {
+  outline-color: var(--t-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-brand]:not([data-brand="default"]) :is(.bar-fill, .button, .select__popover, .list-box-item) {
+    transition: none !important;
+    animation: none !important;
+  }
+}

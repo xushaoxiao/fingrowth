@@ -1,18 +1,30 @@
 ---
 name: growth-metric-tree
-description: Define risk-adjusted lending growth metrics with explicit populations and maturity.
+description: Define a consumer lending metric tree, denominators and risk-adjusted contribution. Use when choosing a north star, reconciling CAC with loss or writing a metric dictionary.
 ---
 
-# growth-metric-tree
+# Growth metric tree
 
-## Inputs
-Ask for business question, geography, product, aggregate cohort definitions, time window, currency, maturity, source and authorized scope. Mark missing evidence unknown and continue only where defensible.
+Translate the requested business goal into measurable drivers and guardrails. A tree is useful only when its arithmetic, populations and source ownership reconcile.
 
-## Workflow
-Start with contribution = recognized revenue minus acquisition, credit loss, funding, servicing and incentives. Declare accounting treatment to avoid double counting; never add both expected and realized loss for the same exposure. Define funded CAC, step conversion and repayment outcomes with denominators, currency, cohort windows and outcome maturity. Deliver a metric tree, dictionary, event sources and unknowns. Zero denominators are unknown; immature loss cannot support a winning claim.
+## Establish the measurement contract
 
-## Guardrails
-Use synthetic or approved anonymous aggregates only. Never request PII, credentials, production exports or internal employer documents. Do not infer protected traits or recommend discriminatory targeting. Distinguish observations, hypotheses and recommendations. No autonomous underwriting, customer contact, pricing changes or deployment. Legal obligations depend on jurisdiction and require qualified local review. Do not claim compliance from this skill.
+Identify product, jurisdiction, population unit (person, loan or exposure), cohort-entry rule, timezone, observation date, outcome horizon, currency, source and loss basis. Mark missing fields unknown. Never compare currencies or mix loan and borrower denominators without an explicit bridge. Use synthetic or approved anonymous aggregates; do not request customer rows or internal employer materials.
 
-## Output contract
-Provide scope and assumptions, evidence with denominators and dates, calculation definitions, findings, uncertainty, proposed actions with owners, and human decision gates. Label modeled economics separately from realized outcomes. Do not invent results.
+## Build and reconcile
+
+- Start with contribution = recognized revenue − acquisition − credit loss − funding − servicing − incentives. Principal advanced is not revenue. Costs must be mutually exclusive, in the same currency, population and horizon. Recognized revenue means net of reversals according to the stated accounting basis.
+- Choose one loss measure for each exposure. Expected and realized loss on the same exposure cannot both be subtracted. Fraud, recoveries and collection costs need an explicit treatment to avoid counting them twice.
+- Link first-funded people to acquisition volume and sequential conditional conversion rates only if populations are nested. Treat repeat lending as a separate loan/exposure bridge, not an automatic multiplication of first-loan economics.
+- Define funded CAC = acquisition spend / first-funded people. Zero denominator means unknown. Explain paid-only versus blended spend and organic attribution.
+- Keep mature observed contribution separate from modeled/immature economics. A `mature: true` label alone does not prove outcome completeness.
+
+Use [the metric dictionary and worked example](references/metric-dictionary.md) for concrete definitions and a reconciliation check.
+
+## Deliver
+
+Provide a metric tree, dictionary (formula, numerator/denominator, population, window, source, owner, maturity and exclusions), reconciled example and unresolved measurement issues. Separate north-star economics from diagnostic conversion rates and risk guardrails. Do not estimate lifetime value, APR, default probability or causal uplift from unsupported aggregate counts.
+
+## Decision boundaries
+
+Do not recommend discriminatory targeting or infer protected traits. No autonomous underwriting, customer contact, pricing changes or deployment. Risk/finance own loss treatment and scale decisions. Local obligations require jurisdiction-specific qualified review; do not claim compliance. Label observation, model and recommendation explicitly.

@@ -1,0 +1,14 @@
+{
+  "description": "Synthetic raw event totals from unrelated months; not a cohort and not valid calculator input",
+  "counts": {
+    "acquired": 1000,
+    "registered": 1200,
+    "kyc": 900,
+    "applied": 800,
+    "approved": 600,
+    "accepted": 550,
+    "disbursed": 500,
+    "repaid": 300,
+    "repeat": 100
+  }
+}

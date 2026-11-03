@@ -38,6 +38,18 @@ class AnalysisTest(unittest.TestCase):
                 product *= step["conversion"]
             self.assertAlmostEqual(product * row["counts"]["acquired"], row["counts"]["disbursed"])
 
+    def test_cost_sum_does_not_erase_loss_at_large_supported_values(self):
+        row = self.rows[0]
+        row.update(revenue=10**28, acquisition_cost=10**28 + 1,
+                   credit_loss=0, funding_cost=0, servicing_cost=0, incentives=0)
+        self.assertEqual(m.analyze(row)["contribution"], -1)
+
+    def test_fractional_costs_reconcile_without_binary_float_residual(self):
+        row = self.rows[0]
+        row.update(revenue=0.3, acquisition_cost=0.1, credit_loss=0.2,
+                   funding_cost=0, servicing_cost=0, incentives=0)
+        self.assertEqual(m.analyze(row)["contribution"], 0)
+
     def test_rankings_answer_different_questions(self):
         candidates = m.analyze(self.rows[0])["investigation_candidates"]
         self.assertEqual(candidates["by_not_progressed"][0]["not_progressed"], 4000)

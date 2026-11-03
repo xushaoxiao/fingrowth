@@ -10,7 +10,8 @@ Current resources:
 | growth-metric-tree | references/metric-dictionary.md | Metric definitions and arithmetic reconciliation |
 | growth-funnel-diagnosis | references/input-contract.md, scripts/analyze.py | Strict synthetic calculations and report |
 | growth-experiment-design | assets/experiment-card.md | Fillable experiment specification with unresolved launch gates |
+| growth-data-adapter | references/workspace-contract.md, assets/*profile.json, scripts/build_workspace.py | Source-to-workspace mapping with validation and provenance |
 
 The funnel implementation has no external dependencies. `scripts/analyze.py` at repository root delegates to it; there is no second copy of the calculation logic. Tests run a copied folder in Python isolated mode outside the checkout. This verifies execution portability, not host automatic discovery or the quality of every agent response.
 
-Skill installation never authorizes mutation of a lending system. Changes require realistic examples and observable calculation tests where relevant. Avoid tests that merely match skill wording; behavioral evaluation should use representative tasks and explicitly track missing evidence. Host-specific invocation, independent behavioral evaluation and real practitioner acceptance remain separate milestones.
+Skill installation never authorizes mutation of a lending system. Changes require realistic examples and observable calculation tests where relevant. Avoid tests that merely match skill wording; behavioral evaluation should use representative tasks and explicitly track missing evidence. Observed isolated-Agent behavior and an independent review are recorded in evals/ACCEPTANCE.md, including a failure/fix/rerun. Automatic host discovery and real practitioner/business acceptance remain separate milestones.

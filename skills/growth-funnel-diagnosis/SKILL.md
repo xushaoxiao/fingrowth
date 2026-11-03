@@ -28,6 +28,8 @@ Resolve `<skill-directory>` from this file's location, not the current working d
 4. Compare channels only with aligned windows, currency, attribution, risk mix and maturity. Lower funded CAC can coexist with worse contribution. Do not aggregate incompatible cohorts or infer loss severity from unrepaid counts.
 5. For each leading hypothesis, propose a disconfirming check, needed aggregate evidence and owner. Suggest an experiment only after instrumentation and safety prerequisites are clear.
 
+Before finalizing priority prose, check each named leader against its own calculated ranking. For bundled output, use `investigation_candidates.by_not_progressed` for count leaders and `investigation_candidates.by_lowest_conversion` for rate leaders, including all ties. An empty list has no observed leader. Do not carry the count leader into the rate conclusion: different transitions can lead the two rankings even within one cohort. Reconcile the narrative, table and JSON values before delivery.
+
 ## Deliver
 
 Return scope/quality gaps, the calculation table, investigation candidates under both rankings, an evidence/hypothesis table, proposed next actions and limits. The bundled Markdown report is the arithmetic baseline; enrich it with actual supplied evidence, not invented root causes. Label unknown denominators and immature contribution as unknown, not zero.

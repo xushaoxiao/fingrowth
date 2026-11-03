@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0",
+  "name": "FinGrowth synthetic lending workspace",
+  "description": "Hypothetical growth-engineering workspace built from invented aggregate first-loan cohorts. Planning cards are examples, not live experiments or delivered work.",
+  "data_mode": "synthetic",
+  "provenance": {
+    "source": "FinGrowth examples/lending/cohorts.json (invented aggregate fixture)",
+    "extracted_at": "2026-11-03T00:00:00Z",
+    "timezone": "UTC",
+    "cohort_definition": "Synthetic January 2026 acquisition cohorts; nested unique people with one first loan. Observation cutoff is 2026-10-31. Full repayment precedes repeat in this simplified model; additional repeat-loan exposures are excluded. Maturity is supplied metadata, not verified from schedules.",
+    "approval_reference": null,
+    "mappings": [
+      {
+        "target": "acquisition_cost",
+        "source": "acquisition_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "cohort",
+        "source": "cohort",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.accepted",
+        "source": "counts.accepted",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.acquired",
+        "source": "counts.acquired",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.applied",
+        "source": "counts.applied",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.approved",
+        "source": "counts.approved",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.disbursed",
+        "source": "counts.disbursed",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.kyc",
+        "source": "counts.kyc",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.registered",
+        "source": "counts.registered",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.repaid",
+        "source": "counts.repaid",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.repeat",
+        "source": "counts.repeat",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "credit_loss",
+        "source": "credit_loss",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "currency",
+        "source": "currency",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "funding_cost",
+        "source": "funding_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "incentives",
+        "source": "incentives",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "mature",
+        "source": "mature",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "outcome_as_of",
+        "source": "outcome_as_of",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "revenue",
+        "source": "revenue",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "servicing_cost",
+        "source": "servicing_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "synthetic",
+        "source": "synthetic",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "window",
+        "source": "window",
+        "transform": "copy without coercion"
+      }
+    ]
+  },
+  "cohorts": [
+    {
+      "counts": {
+        "acquired": 10000,
+        "registered": 6000,
+        "kyc": 4800,
+        "applied": 3600,
+        "approved": 1800,
+        "accepted": 1500,
+        "disbursed": 1400,
+        "repaid": 1300,
+        "repeat": 400
+      },
+      "cohort": "baseline",
+      "window": "2026-01-01/2026-01-31",
+      "outcome_as_of": "2026-10-31",
+      "currency": "USD",
+      "synthetic": true,
+      "mature": true,
+      "acquisition_cost": 14000,
+      "revenue": 42000,
+      "credit_loss": 14000,
+      "funding_cost": 5000,
+      "servicing_cost": 3000,
+      "incentives": 2000
+    },
+    {
+      "counts": {
+        "acquired": 12000,
+        "registered": 6500,
+        "kyc": 4600,
+        "applied": 3500,
+        "approved": 1800,
+        "accepted": 1500,
+        "disbursed": 1400,
+        "repaid": 1100,
+        "repeat": 350
+      },
+      "cohort": "cheap-channel",
+      "window": "2026-01-01/2026-01-31",
+      "outcome_as_of": "2026-10-31",
+      "currency": "USD",
+      "synthetic": true,
+      "mature": true,
+      "acquisition_cost": 10000,
+      "revenue": 42000,
+      "credit_loss": 23000,
+      "funding_cost": 5000,
+      "servicing_cost": 3000,
+      "incentives": 2000
+    }
+  ],
+  "experiments": [
+    {
+      "id": "hyp-kyc-guidance",
+      "title": "Hypothetical: clearer document guidance",
+      "status": "blocked before launch",
+      "owner": "Product + experiment owner (proposed)",
+      "primary_metric": "KYC completion within seven days / all assigned eligible people (ITT)",
+      "hypothesis": "Clearer upload instructions may improve completion without changing underwriting.",
+      "guardrails": [
+        "Complaint and consent thresholds unresolved",
+        "Fraud/loss thresholds and maturity horizon unresolved",
+        "Baseline, MDE, power and eligible assignment traffic unresolved"
+      ],
+      "next_action": "Agree definitions, thresholds and power before seeking human launch approval."
+    },
+    {
+      "id": "hyp-channel-quality",
+      "title": "Hypothetical: acquisition-quality investigation",
+      "status": "draft",
+      "owner": "Growth analytics + risk + finance (proposed)",
+      "primary_metric": "Mature contribution per assigned eligible person; design unresolved",
+      "hypothesis": "Differences in risk mix, attribution or measurement may explain the cheap cohort loss gap.",
+      "guardrails": [
+        "No causal channel claim from descriptive cohorts",
+        "No scale decision from funded CAC alone",
+        "Do not change underwriting to improve approval conversion"
+      ],
+      "next_action": "Reconcile attribution, risk mix and loss basis before designing a test."
+    },
+    {
+      "id": "hyp-repeat-journey",
+      "title": "Hypothetical: eligible repeat journey",
+      "status": "draft",
+      "owner": "Lifecycle product + risk (proposed)",
+      "primary_metric": "Eligible repeat borrowers / fixed eligible repayment cohort within a declared window",
+      "hypothesis": "A supported repeat journey may improve eligible return; evidence is not supplied.",
+      "guardrails": [
+        "Eligibility, consent and consumer-treatment review unresolved",
+        "Repeat-loan exposures require a separate economics bridge",
+        "No customer messaging is authorized by this card"
+      ],
+      "next_action": "Define eligibility and observation window; resolve policy before considering an intervention."
+    }
+  ],
+  "initiatives": [
+    {
+      "id": "hyp-ledger-projection",
+      "title": "Hypothetical: ledger-confirmed funding projection",
+      "owner": "Payments engineering + data (proposed)",
+      "status": "planned",
+      "acceptance": "Proposed: duplicate callbacks and timeout-after-acceptance count one ledger-confirmed first-funded person; repeat reconciliation is stable.",
+      "dependency": "Confirm ledger semantics, stable joins, event ownership and provider idempotency."
+    },
+    {
+      "id": "hyp-kyc-observability",
+      "title": "Hypothetical: KYC reason accounting",
+      "owner": "Identity engineering + analytics (proposed)",
+      "status": "planned",
+      "acceptance": "Proposed: technical failure, policy rejection, pending work and abandonment reconcile without double-counting retries.",
+      "dependency": "Approve cohort definitions and aggregate reason taxonomy."
+    },
+    {
+      "id": "hyp-experiment-assignment",
+      "title": "Hypothetical: persistent experiment assignment",
+      "owner": "Product engineering + data (proposed)",
+      "status": "planned",
+      "acceptance": "Proposed: person-level assignment persists across devices; ITT outcome query reconciles to all assigned eligible people.",
+      "dependency": "Stable authorized identity, power plan, approved guardrails and rollback owner."
+    }
+  ]
+}

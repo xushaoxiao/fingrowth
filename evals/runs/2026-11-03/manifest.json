@@ -1,0 +1,158 @@
+{
+  "date": "2026-11-03",
+  "method": "fresh isolated explicit skill invocation; independent artifact review",
+  "baseline_commit": "72c1ef538a88610e87a49ca5833a61ea39474280",
+  "model_note": "Session-inherited agents; exact model identifier not independently recorded. No cross-model claim.",
+  "runs": [
+    {
+      "run": "fintech-growth-architect",
+      "skill": "fintech-growth-architect",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "fc2da9952204ee0d7e88e71f2b05d5f9771f3ce1b4c4d96533a6f74d477beaf1",
+        "references/delivery-worksheet.md": "fab97315e03104932984113ae78f68c51163ef979e7ef466eee42065d2a33f0d"
+      },
+      "artifact_sha256": {
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "answer.md": "c9869f184a1fbbebedec9b73393798ec1624206d13ac364a4fff6369f84e61a8",
+        "execution.md": "b8d173232ae721260c293294cf18cda07ad3c6e691f835660458f2297b47f40a",
+        "TASK.md": "fc7becf76895439a8a6dd851266b4e42405c0912227c9fd22108c4c97994b550"
+      },
+      "result": "PASS",
+      "review": "review-first-three.md"
+    },
+    {
+      "run": "growth-metric-tree",
+      "skill": "growth-metric-tree",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "84c139eeb6d94cf0db32870c2ba6bed87ec526a59e37cffe7bff8561dcef676e",
+        "references/metric-dictionary.md": "973ab5d8927af57915a03c6f069bc414f58476cd8d34c8f8cb0605c9606bf03e"
+      },
+      "artifact_sha256": {
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "answer.md": "44a858ef8b7628af96926bbad989206b1c72e82b0ad1ebbc350f09469887c85d",
+        "execution.md": "b9c42870b28883fb8992d084a5e9b5d8172eb0184cf2cceccfa5798a064b9355",
+        "TASK.md": "db464835d25d00bc8603a198f8bb0f535865842eb03a68bf32f3c7f8506b44f6"
+      },
+      "result": "PASS",
+      "review": "review-first-three.md"
+    },
+    {
+      "run": "growth-funnel-diagnosis",
+      "skill": "growth-funnel-diagnosis",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "443e36e530758e47dbcf4c1e49e344e15c7093840698ce2385fd450e40ecb361",
+        "references/input-contract.md": "9f165ff867dd34b980968cae2805c30c5532aa70054f822e378df644d08d5e36",
+        "scripts/analyze.py": "1228e0a5ff92840d2cf70b7416dab0dabf191c1f7634fbdf9e22075da9413542"
+      },
+      "artifact_sha256": {
+        "calculator-report.json": "bccbd012e00870990036922384faedb16cb32ff7386bb2a216615632ed099870",
+        "calculator-report.md": "ac40c1754a623b96a2494b2c59706958f370f00e61afcd804bf6acab2babc102",
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "answer.md": "7a3e141a6f73f29d8b90f10fbe28f16b6dfdeb0621b2c8620337e2494cb5c3a2",
+        "execution.md": "a421a565611be34e1be6dafd08db93d544c9dbad7fd9734354987aed26b9f3bd",
+        "monthly-dashboard-original.json": "6d6d56282c878308ad7c3212e7c45d054302d657e2f3ff90c1ad59ca69ac966e",
+        "TASK.md": "29d0056caf04954ed3d99451aa9c20d5b2a2932aaee84e4aa9f9b4783594c407"
+      },
+      "result": "PASS",
+      "review": "review-first-three.md"
+    },
+    {
+      "run": "growth-experiment-design",
+      "skill": "growth-experiment-design",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "4aa902aaf7872b216c72ae7a7c25c277d9adfb61eb29e9a2cba9d86d5d8a74b2",
+        "assets/experiment-card.md": "737bdbdc1add987dfb9a6478597cf9a8969202fcb45dd9b60384b1da9914553c"
+      },
+      "artifact_sha256": {
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "answer.md": "3c7a3edb6ec3a12a65445814634afecc3591d35680ce0e5a97315a5eba33a2fc",
+        "execution.md": "f2ae219a509e78c882a63aa3f51cdedd7b1025ace2d94dcb413c9ac34b7b498e",
+        "TASK.md": "7099506acba239873bc911d7e6e1f0ca0b57965bc80f371930bde4e22f71aaf7"
+      },
+      "result": "PASS",
+      "review": "review-final-two.md"
+    },
+    {
+      "run": "rerun-funnel",
+      "skill": "growth-funnel-diagnosis",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "443e36e530758e47dbcf4c1e49e344e15c7093840698ce2385fd450e40ecb361",
+        "references/input-contract.md": "9f165ff867dd34b980968cae2805c30c5532aa70054f822e378df644d08d5e36",
+        "scripts/analyze.py": "14443870674c53f411938c6dc1b3e1664a4f2e1d7e782bba9170eed9201bb429"
+      },
+      "artifact_sha256": {
+        "large-amounts.json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "large-amounts.markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cohorts.json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "large-amounts.md": "d7a0eefd8fe1caf0e15bf33dfd80089c56ca857d207b5f7dab685940212e2691",
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "answer.md": "d89c32924a6c3429ea375b37af9612b3ff9ed4d77ca9bc0ab9303011052da8e3",
+        "large-amounts.json": "cb51ac3db4c44a54de8104354535da8039ad0a633ad28e476432576dc91e8e57",
+        "execution.md": "3538f170f9d006a7c6eddaee456944e9759b8228b274d74822c27feee7e843c9",
+        "cohorts.report.json": "bccbd012e00870990036922384faedb16cb32ff7386bb2a216615632ed099870",
+        "cohorts.markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cohorts.md": "ac40c1754a623b96a2494b2c59706958f370f00e61afcd804bf6acab2babc102",
+        "TASK.md": "e90c750e0544fc9739be5502b2827c8d20cd5fc714e53a72f88360af66ae66fc",
+        "large-amounts.report.json": "fb7b0441fe807e678452b475b319c16b77cc8f3ed5786f3ec8344024fa6a53ea"
+      },
+      "result": "FAIL",
+      "review": "review-final-two.md"
+    },
+    {
+      "run": "rerun-funnel-2",
+      "skill": "growth-funnel-diagnosis",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "0ab7666bbcc21e767294ac74dd1c8aa5a00129947dcfadeb389634628b6030aa",
+        "references/input-contract.md": "9f165ff867dd34b980968cae2805c30c5532aa70054f822e378df644d08d5e36",
+        "scripts/analyze.py": "14443870674c53f411938c6dc1b3e1664a4f2e1d7e782bba9170eed9201bb429"
+      },
+      "artifact_sha256": {
+        "large-amounts-calculator-json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "large-amounts-calculator-markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cohorts-calculator-json.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cohorts-calculator-markdown.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cohorts.json": "8954088ad62736a832b022a641d099ad12c88f087b08341bb3dc6648cc0cd89d",
+        "cohorts-calculator.md": "ac40c1754a623b96a2494b2c59706958f370f00e61afcd804bf6acab2babc102",
+        "answer.md": "851de5a97c899bdcd4906fc1d60445769280851a7b252ac924f5a5a78c868db7",
+        "large-amounts.json": "cb51ac3db4c44a54de8104354535da8039ad0a633ad28e476432576dc91e8e57",
+        "execution.md": "f9991e85a75122461595a755e191f3e3941c2c27c798a167f59999643d3cf163",
+        "large-amounts-calculator.json": "fb7b0441fe807e678452b475b319c16b77cc8f3ed5786f3ec8344024fa6a53ea",
+        "TASK.md": "e90c750e0544fc9739be5502b2827c8d20cd5fc714e53a72f88360af66ae66fc",
+        "large-amounts-calculator.md": "d7a0eefd8fe1caf0e15bf33dfd80089c56ca857d207b5f7dab685940212e2691",
+        "cohorts-calculator.json": "bccbd012e00870990036922384faedb16cb32ff7386bb2a216615632ed099870",
+        "calculator-execution.json": "d967436dc0afe566c461f00038d1f6dbc7c5fd037bf10e7ca15c2358472b3a14"
+      },
+      "result": "PASS",
+      "review": "review-funnel-final.md"
+    },
+    {
+      "run": "growth-data-adapter",
+      "skill": "growth-data-adapter",
+      "skill_snapshot_sha256": {
+        "SKILL.md": "3d58d2461433359392213a7fc697909bd3a5621ebcc43852005a96d52dfdb462",
+        "references/workspace-contract.md": "db1529bd4c023fb1bd30e52d343e907367fa9891934ea1a97f2bba97cc1361ab",
+        "scripts/build_workspace.py": "79b7f83bb5879dae9cab8cf6bd91d26cd5e8f306be378b7c5f9768ad202928f9",
+        "assets/identity-profile.json": "5801ee86a61d79da425ea63f720774b8086907313ac0ca9a0a980915948ded24",
+        "assets/renamed-fields-profile.json": "8c6e70dde844ee93e0dc502bc3aaaab835574519e33962a8ba3f7840672f7830"
+      },
+      "artifact_sha256": {
+        "workspace.json": "2ce89d14efe734ad1409cbd90917c2ef058bab2f1518c52118b77a7033707fd1",
+        "incomplete.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "input-integrity.json": "77c13411090276fbff4ba73d4b462befd22aef1b322f8f81c942d4c1a301c8ad",
+        "source.json": "9663401e1d98c505f8a30f00a7cb578954367d90f85e8263e92ce54c403d489c",
+        "valid.exit-status.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "valid.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "incomplete.exit-status.txt": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+        "answer.md": "07c05d2fb9ad302f305d600d9f7524288b4bfa2f4190bd0f4fe242242faba902",
+        "execution.md": "b06b3f7eca5f4dcc5c8f1185a300e8e9132f712cd9b027eff02cec1ca59cd60c",
+        "TASK.md": "09e46b3760859f7b8c91df8b4cc6e2beb0514c3627ae040a5ed598b42971d0b3",
+        "incomplete.stderr.txt": "6a8377b643273fc575bdddde52c7d202b3e8e0bd7c207f5640f12b0a433cbeb1",
+        "valid.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "profile.json": "65e02594afcea706070d60e9afc44ff81739b33ed79fcb589a4c4abcecc84395",
+        "incomplete-source.json": "a9c6b97a8eac618995b18fe6dbcfc9704604db3608c75a5a2c59f70c385951a1"
+      },
+      "result": "PASS",
+      "review": "review-adapter.md"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+[
+  {
+    "cohort": "large-synthetic-cost-cancellation",
+    "currency": "USD",
+    "window": "2026-01-01/2026-01-31",
+    "outcome_as_of": "2026-10-31",
+    "mature": true,
+    "rates": {
+      "acquired->registered": 0.6,
+      "registered->kyc": 0.8,
+      "kyc->applied": 0.75,
+      "applied->approved": 0.5,
+      "approved->accepted": 0.8333333333333334,
+      "accepted->disbursed": 0.9333333333333333,
+      "disbursed->repaid": 0.9285714285714286,
+      "repaid->repeat": 0.3076923076923077
+    },
+    "funded_cac": 7.142857142857143e+24,
+    "contribution": -1.0,
+    "steps": [
+      {
+        "from": "acquired",
+        "to": "registered",
+        "population": 10000,
+        "converted": 6000,
+        "not_progressed": 4000,
+        "conversion": 0.6
+      },
+      {
+        "from": "registered",
+        "to": "kyc",
+        "population": 6000,
+        "converted": 4800,
+        "not_progressed": 1200,
+        "conversion": 0.8
+      },
+      {
+        "from": "kyc",
+        "to": "applied",
+        "population": 4800,
+        "converted": 3600,
+        "not_progressed": 1200,
+        "conversion": 0.75
+      },
+      {
+        "from": "applied",
+        "to": "approved",
+        "population": 3600,
+        "converted": 1800,
+        "not_progressed": 1800,
+        "conversion": 0.5
+      },
+      {
+        "from": "approved",
+        "to": "accepted",
+        "population": 1800,
+        "converted": 1500,
+        "not_progressed": 300,
+        "conversion": 0.8333333333333334
+      },
+      {
+        "from": "accepted",
+        "to": "disbursed",
+        "population": 1500,
+        "converted": 1400,
+        "not_progressed": 100,
+        "conversion": 0.9333333333333333
+      },
+      {
+        "from": "disbursed",
+        "to": "repaid",
+        "population": 1400,
+        "converted": 1300,
+        "not_progressed": 100,
+        "conversion": 0.9285714285714286
+      },
+      {
+        "from": "repaid",
+        "to": "repeat",
+        "population": 1300,
+        "converted": 400,
+        "not_progressed": 900,
+        "conversion": 0.3076923076923077
+      }
+    ],
+    "investigation_candidates": {
+      "by_not_progressed": [
+        {
+          "from": "acquired",
+          "to": "registered",
+          "population": 10000,
+          "converted": 6000,
+          "not_progressed": 4000,
+          "conversion": 0.6
+        },
+        {
+          "from": "applied",
+          "to": "approved",
+          "population": 3600,
+          "converted": 1800,
+          "not_progressed": 1800,
+          "conversion": 0.5
+        },
+        {
+          "from": "registered",
+          "to": "kyc",
+          "population": 6000,
+          "converted": 4800,
+          "not_progressed": 1200,
+          "conversion": 0.8
+        },
+        {
+          "from": "kyc",
+          "to": "applied",
+          "population": 4800,
+          "converted": 3600,
+          "not_progressed": 1200,
+          "conversion": 0.75
+        },
+        {
+          "from": "approved",
+          "to": "accepted",
+          "population": 1800,
+          "converted": 1500,
+          "not_progressed": 300,
+          "conversion": 0.8333333333333334
+        },
+        {
+          "from": "accepted",
+          "to": "disbursed",
+          "population": 1500,
+          "converted": 1400,
+          "not_progressed": 100,
+          "conversion": 0.9333333333333333
+        }
+      ],
+      "by_lowest_conversion": [
+        {
+          "from": "applied",
+          "to": "approved",
+          "population": 3600,
+          "converted": 1800,
+          "not_progressed": 1800,
+          "conversion": 0.5
+        },
+        {
+          "from": "acquired",
+          "to": "registered",
+          "population": 10000,
+          "converted": 6000,
+          "not_progressed": 4000,
+          "conversion": 0.6
+        },
+        {
+          "from": "kyc",
+          "to": "applied",
+          "population": 4800,
+          "converted": 3600,
+          "not_progressed": 1200,
+          "conversion": 0.75
+        },
+        {
+          "from": "registered",
+          "to": "kyc",
+          "population": 6000,
+          "converted": 4800,
+          "not_progressed": 1200,
+          "conversion": 0.8
+        },
+        {
+          "from": "approved",
+          "to": "accepted",
+          "population": 1800,
+          "converted": 1500,
+          "not_progressed": 300,
+          "conversion": 0.8333333333333334
+        },
+        {
+          "from": "accepted",
+          "to": "disbursed",
+          "population": 1500,
+          "converted": 1400,
+          "not_progressed": 100,
+          "conversion": 0.9333333333333333
+        }
+      ]
+    },
+    "warnings": [
+      "Synthetic descriptive cohorts do not establish causes or experiment uplift.",
+      "Approval gaps include policy rejection; repayment/repeat are delayed outcomes, not UX drop-off.",
+      "Maturity is declared by the fixture, not verified from exposure or repayment schedules."
+    ],
+    "explanation": "contribution = revenue - acquisition - credit loss - funding - servicing - incentives; immature contribution is unknown"
+  }
+]

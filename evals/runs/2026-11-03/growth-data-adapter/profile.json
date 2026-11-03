@@ -1,0 +1,37 @@
+{
+  "name": "Synthetic partner export workspace",
+  "description": "Invented aggregate first-loan cohorts from Synthetic partner export; no planning cards were supplied.",
+  "data_mode": "synthetic",
+  "provenance": {
+    "source": "Synthetic partner export",
+    "extracted_at": "2026-11-03T00:00:00Z",
+    "timezone": "UTC",
+    "cohort_definition": "Invented January 2026 acquisition cohorts (inclusive 2026-01-01/2026-01-31), observed on 2026-10-31. Counts are nested unique first-loan people; repayment precedes repeat in this model and repeat-loan economics are excluded. Maturity is supplied metadata, not independently verified. Currency is USD. Revenue recognition and the selected credit-loss basis were not supplied.",
+    "approval_reference": null
+  },
+  "field_map": {
+    "cohort": "segment",
+    "window": "entry_dates",
+    "outcome_as_of": "observed_on",
+    "currency": "money_unit",
+    "synthetic": "invented",
+    "mature": "outcomes_closed",
+    "acquisition_cost": "totals.acquisition_cost",
+    "revenue": "totals.revenue",
+    "credit_loss": "totals.credit_loss",
+    "funding_cost": "totals.funding_cost",
+    "servicing_cost": "totals.servicing_cost",
+    "incentives": "totals.incentives",
+    "counts.acquired": "people.acquired",
+    "counts.registered": "people.registered",
+    "counts.kyc": "people.kyc",
+    "counts.applied": "people.applied",
+    "counts.approved": "people.approved",
+    "counts.accepted": "people.accepted",
+    "counts.disbursed": "people.disbursed",
+    "counts.repaid": "people.repaid",
+    "counts.repeat": "people.repeat"
+  },
+  "experiments": [],
+  "initiatives": []
+}

@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-03",
+  "url": "http://127.0.0.1:4173/",
+  "themes": [
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(17, 18, 20)",
+      "theme": "tesla"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(7, 11, 8)",
+      "theme": "nvidia"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(10, 9, 12)",
+      "theme": "amd"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(10, 28, 53)",
+      "theme": "meta"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(23, 37, 61)",
+      "theme": "google"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(23, 35, 50)",
+      "theme": "amazon"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(0, 0, 0)",
+      "theme": "uber"
+    },
+    {
+      "funded": "1,400",
+      "sidebar": "rgb(19, 44, 37)",
+      "theme": "default"
+    }
+  ],
+  "persisted_after_reload": "NVIDIA",
+  "desktop": {
+    "pageWidth": 1440,
+    "width": 1440
+  },
+  "mobile": {
+    "pageWidth": 390,
+    "width": 390
+  },
+  "duplicate_import_error": "Duplicate JSON field. Resolve the source conflict before import.",
+  "adapter_import_notice": "Loaded Synthetic partner export workspace. Data stays in this browser tab.\n×",
+  "scope": "local synthetic browser acceptance; no live data or deployment"
+}

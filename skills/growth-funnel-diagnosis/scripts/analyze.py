@@ -1,7 +1,7 @@
 """Analyze synthetic nested cohorts with Python 3.10+ and no dependencies."""
 import argparse
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, localcontext
 import json
 import math
 from pathlib import Path
@@ -65,7 +65,12 @@ def analyze(row):
             raise ValueError("counts must be nonnegative nested integer populations")
         previous = count
     money = {field: _money(row[field], field) for field in COSTS + ("revenue",)}
-    contribution = float(money["revenue"] - sum(money[k] for k in COSTS))
+    # Size decimal precision to the accepted values. The default 28 digits can
+    # round a cost total before cancellation and erase a small genuine loss.
+    with localcontext() as context:
+        context.prec = max(value.adjusted() for value in money.values()) - min(
+            value.as_tuple().exponent for value in money.values()) + 3
+        contribution = float(money["revenue"] - sum(money[k] for k in COSTS))
     if not math.isfinite(contribution):
         raise ValueError("monetary totals exceed supported numeric range")
 

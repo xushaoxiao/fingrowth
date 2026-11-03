@@ -1,0 +1,24 @@
+{
+  "algorithm": "sha256",
+  "before": {
+    "TASK.md": "09e46b3760859f7b8c91df8b4cc6e2beb0514c3627ae040a5ed598b42971d0b3",
+    "source.json": "9663401e1d98c505f8a30f00a7cb578954367d90f85e8263e92ce54c403d489c",
+    "incomplete-source.json": "a9c6b97a8eac618995b18fe6dbcfc9704604db3608c75a5a2c59f70c385951a1",
+    "growth-data-adapter/SKILL.md": "3d58d2461433359392213a7fc697909bd3a5621ebcc43852005a96d52dfdb462",
+    "growth-data-adapter/references/workspace-contract.md": "db1529bd4c023fb1bd30e52d343e907367fa9891934ea1a97f2bba97cc1361ab",
+    "growth-data-adapter/assets/identity-profile.json": "5801ee86a61d79da425ea63f720774b8086907313ac0ca9a0a980915948ded24",
+    "growth-data-adapter/assets/renamed-fields-profile.json": "8c6e70dde844ee93e0dc502bc3aaaab835574519e33962a8ba3f7840672f7830",
+    "growth-data-adapter/scripts/build_workspace.py": "79b7f83bb5879dae9cab8cf6bd91d26cd5e8f306be378b7c5f9768ad202928f9"
+  },
+  "after": {
+    "TASK.md": "09e46b3760859f7b8c91df8b4cc6e2beb0514c3627ae040a5ed598b42971d0b3",
+    "source.json": "9663401e1d98c505f8a30f00a7cb578954367d90f85e8263e92ce54c403d489c",
+    "incomplete-source.json": "a9c6b97a8eac618995b18fe6dbcfc9704604db3608c75a5a2c59f70c385951a1",
+    "growth-data-adapter/SKILL.md": "3d58d2461433359392213a7fc697909bd3a5621ebcc43852005a96d52dfdb462",
+    "growth-data-adapter/references/workspace-contract.md": "db1529bd4c023fb1bd30e52d343e907367fa9891934ea1a97f2bba97cc1361ab",
+    "growth-data-adapter/assets/identity-profile.json": "5801ee86a61d79da425ea63f720774b8086907313ac0ca9a0a980915948ded24",
+    "growth-data-adapter/assets/renamed-fields-profile.json": "8c6e70dde844ee93e0dc502bc3aaaab835574519e33962a8ba3f7840672f7830",
+    "growth-data-adapter/scripts/build_workspace.py": "79b7f83bb5879dae9cab8cf6bd91d26cd5e8f306be378b7c5f9768ad202928f9"
+  },
+  "unchanged": true
+}

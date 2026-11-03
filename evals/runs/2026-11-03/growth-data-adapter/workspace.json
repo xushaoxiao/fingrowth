@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0",
+  "name": "Synthetic partner export workspace",
+  "description": "Invented aggregate first-loan cohorts from Synthetic partner export; no planning cards were supplied.",
+  "data_mode": "synthetic",
+  "provenance": {
+    "source": "Synthetic partner export",
+    "extracted_at": "2026-11-03T00:00:00Z",
+    "timezone": "UTC",
+    "cohort_definition": "Invented January 2026 acquisition cohorts (inclusive 2026-01-01/2026-01-31), observed on 2026-10-31. Counts are nested unique first-loan people; repayment precedes repeat in this model and repeat-loan economics are excluded. Maturity is supplied metadata, not independently verified. Currency is USD. Revenue recognition and the selected credit-loss basis were not supplied.",
+    "approval_reference": null,
+    "mappings": [
+      {
+        "target": "acquisition_cost",
+        "source": "totals.acquisition_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "cohort",
+        "source": "segment",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.accepted",
+        "source": "people.accepted",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.acquired",
+        "source": "people.acquired",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.applied",
+        "source": "people.applied",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.approved",
+        "source": "people.approved",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.disbursed",
+        "source": "people.disbursed",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.kyc",
+        "source": "people.kyc",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.registered",
+        "source": "people.registered",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.repaid",
+        "source": "people.repaid",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "counts.repeat",
+        "source": "people.repeat",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "credit_loss",
+        "source": "totals.credit_loss",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "currency",
+        "source": "money_unit",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "funding_cost",
+        "source": "totals.funding_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "incentives",
+        "source": "totals.incentives",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "mature",
+        "source": "outcomes_closed",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "outcome_as_of",
+        "source": "observed_on",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "revenue",
+        "source": "totals.revenue",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "servicing_cost",
+        "source": "totals.servicing_cost",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "synthetic",
+        "source": "invented",
+        "transform": "copy without coercion"
+      },
+      {
+        "target": "window",
+        "source": "entry_dates",
+        "transform": "copy without coercion"
+      }
+    ]
+  },
+  "cohorts": [
+    {
+      "counts": {
+        "acquired": 10000,
+        "registered": 6000,
+        "kyc": 4800,
+        "applied": 3600,
+        "approved": 1800,
+        "accepted": 1500,
+        "disbursed": 1400,
+        "repaid": 1300,
+        "repeat": 400
+      },
+      "cohort": "baseline",
+      "window": "2026-01-01/2026-01-31",
+      "outcome_as_of": "2026-10-31",
+      "currency": "USD",
+      "synthetic": true,
+      "mature": true,
+      "acquisition_cost": 14000,
+      "revenue": 42000,
+      "credit_loss": 14000,
+      "funding_cost": 5000,
+      "servicing_cost": 3000,
+      "incentives": 2000
+    },
+    {
+      "counts": {
+        "acquired": 12000,
+        "registered": 6500,
+        "kyc": 4600,
+        "applied": 3500,
+        "approved": 1800,
+        "accepted": 1500,
+        "disbursed": 1400,
+        "repaid": 1100,
+        "repeat": 350
+      },
+      "cohort": "cheap-channel",
+      "window": "2026-01-01/2026-01-31",
+      "outcome_as_of": "2026-10-31",
+      "currency": "USD",
+      "synthetic": true,
+      "mature": true,
+      "acquisition_cost": 10000,
+      "revenue": 42000,
+      "credit_loss": 23000,
+      "funding_cost": 5000,
+      "servicing_cost": 3000,
+      "incentives": 2000
+    }
+  ],
+  "experiments": [],
+  "initiatives": []
+}

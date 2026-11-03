@@ -26,7 +26,7 @@ The case shows why cheaper acquisition need not create more value:
 
 The report includes step denominators, investigation candidates by count and conversion, evidence gaps and maturity limits. The default command without `--format markdown` still outputs JSON. [Read the generated report](examples/lending/REPORT.md) or follow [the end-to-end walkthrough](docs/QUICKSTART.md).
 
-## Use the four Skills
+## Use the Skills
 
 | Skill | Use it for | Deliverable |
 | --- | --- | --- |
@@ -34,8 +34,21 @@ The report includes step denominators, investigation candidates by count and con
 | [growth-metric-tree](skills/growth-metric-tree/SKILL.md) | Define risk-adjusted growth | Reconciled metric tree and dictionary |
 | [growth-funnel-diagnosis](skills/growth-funnel-diagnosis/SKILL.md) | Investigate conversion and channel quality | Calculation report, hypotheses and evidence checks |
 | [growth-experiment-design](skills/growth-experiment-design/SKILL.md) | Prepare a controlled test | Experiment card with power and delayed-risk gates |
+| [growth-data-adapter](skills/growth-data-adapter/SKILL.md) | Adapt an authorized aggregate source | Validated dashboard workspace with field provenance |
 
 Ask an agent to read the selected `SKILL.md`, or copy the **whole skill folder**, including references/assets/scripts, into the skill location supported by your agent. Each skill is self-contained. The funnel calculator is bundled with its skill; the repository command delegates to the same implementation. Copy-and-run portability is tested; automatic discovery and host-specific compatibility are not certified.
+
+## Open the dashboard
+
+The Next.js + HeroUI workspace brings funnel, economics, experiment plans, delivery and data provenance together. Import a workspace produced by the data-adapter Skill to reuse the views with another approved aggregate source. Choose Default, Tesla, NVIDIA, AMD, Meta, Google, Amazon or Uber inspired themes.
+
+```sh
+cd dashboard
+npm ci
+npm run dev
+```
+
+Read [the dashboard guide](docs/DASHBOARD.md) and [data contract](docs/DATA-CONTRACT.md). The app runs locally and exports as static files; imported data stays in tab memory.
 
 ## How it works
 
@@ -45,4 +58,4 @@ Agents advise; scripts calculate; humans own lending, risk and launch decisions.
 
 Read the [complete case](examples/lending/CASE.md), [metric contract](docs/METRICS.md), [guardrails](docs/GUARDRAILS.md), [skill specification](docs/SKILL-SPEC.md) and [roadmap](docs/ROADMAP.md).
 
-Current iteration: v0.1 usability work. A reference implementation with synthetic data; release tagging, host evaluation and real-world validation are separate milestones. MIT licensed.
+v0.1.0 candidate: see [Agent acceptance](evals/ACCEPTANCE.md), [release preparation](docs/releases/v0.1.0.md) and [changelog](CHANGELOG.md). Explicitly loaded Agent tasks are evaluated; automatic host discovery and real-world lending outcomes remain separate milestones. MIT licensed.

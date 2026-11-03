@@ -4,9 +4,9 @@
 
 Implemented on main: four skill entrypoints, aggregate analyzer, synthetic lending case, calculation tests and contributor boundaries. Reference implementation; a successful CI run does not establish real-world outcomes or host compatibility.
 
-## Current iteration — make the existing skills usable
+## v0.1.0 candidate — usable skills and growth workspace
 
-Proposed acceptance:
+Implemented candidate scope:
 
 - Each skill ships its own task-specific worksheet, dictionary, input contract or experiment card.
 - Funnel calculation produces JSON and readable Markdown, with denominators and distinct investigation rankings by count and conversion.
@@ -14,7 +14,7 @@ Proposed acceptance:
 - The funnel skill runs after a standalone copy, with no repository imports or third-party libraries.
 - The synthetic case report is reproducible in CI, alongside tests across Python 3.10, 3.11 and 3.13.
 
-These are implementation/portability checks. Actual host discovery, independent skill behavior evaluation, release tagging and user acceptance remain separate work.
+The original four Skills and added data-adapter Skill have observed isolated-Agent acceptance with independent artifact review; see evals/ACCEPTANCE.md. The Next.js + HeroUI dashboard adds local workspace import/export, six connected views and eight selectable palettes. Browser interaction checks and CI remain distinct from live business acceptance. Release tagging/publication and automatic host discovery are separate milestones.
 
 ## Next — v0.2 measurement and experiment tooling
 

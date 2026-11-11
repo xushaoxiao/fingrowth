@@ -1,0 +1,15 @@
+{
+  "argentina-http": {
+    "label": "Argentina demo · HTTP",
+    "transport": "http",
+    "url": "http://127.0.0.1:4181/registration-credit",
+    "mapping": "mapping.json"
+  },
+  "argentina-mcp": {
+    "label": "Argentina demo · MCP",
+    "transport": "mcp",
+    "url": "http://127.0.0.1:4182/mcp",
+    "mapping": "mapping.json",
+    "tool": "registration_credit_aggregate"
+  }
+}

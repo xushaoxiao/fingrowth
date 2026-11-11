@@ -14,7 +14,11 @@ npm run dev
 
 Open the printed local URL. `npm run build` produces a static export in `dashboard/out`; any static server can serve that directory. No database, account connection or backend credentials are needed. The app initially loads the invented lending workspace.
 
-## Bring a source through a Skill
+## Refresh a connected source
+
+Use the [local source server](CONNECTED-SOURCES.md) to configure an HTTP or MCP aggregate and refresh the **Registration to credit** view.
+
+## Import a workspace through a Skill
 
 1. Use `growth-data-adapter` on a synthetic or already authorized aggregate export. Establish cohort, first-loan population, observation window, currency, selected loss basis and source provenance. Read the [data contract](DATA-CONTRACT.md).
 2. Produce a reviewed mapping profile and run the bundled mapper. It copies known values, validates the whole workspace and leaves the source unchanged. Missing costs or non-nested populations are blockers; do not fabricate replacements.

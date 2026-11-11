@@ -3,6 +3,7 @@
   "version": "0.1",
   "status": "awaiting_aggregate_evidence",
   "provenance": {
+    "data_kind": null,
     "source": null,
     "authorization_reference": null,
     "extracted_at": null

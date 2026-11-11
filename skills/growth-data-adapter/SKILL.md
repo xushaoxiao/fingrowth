@@ -13,6 +13,14 @@ Use only invented fixtures or aggregates already authorized for this purpose. Id
 
 Read [the workspace contract](references/workspace-contract.md) before mapping. Every canonical cohort value must come from a supplied source field or a separately documented and reviewed upstream aggregation. Missing data remains missing and blocks that cohort's import; never fill absent costs with zero, cap non-nested counts or relabel actual data as synthetic. If the source consists of raw events or loan-level records, provide an aggregation specification and obtain an approved aggregate export instead of feeding rows directly into this adapter.
 
+## Configure a connected registration-to-credit funnel
+
+Use the registration-to-credit intake contract supplied with the task or shipped in the growth-funnel-diagnosis Skill. Review the source's registration, profile completion, KYC pass, bank details completion and credit approval definitions. Confirm the unique-person journey, local calendar dates and fixed follow-up. A confirmed intake can be used directly as the aggregate response.
+
+For a differently shaped response, produce a mapping profile with `template` (path to a reviewed intake template) and `field_map` (canonical field to dotted source path). Map `registered`, `profile_completed`, `kyc_passed`, `bank_details_completed`, `credit_approved`, `cohort.registration_start`, `cohort.registration_end`, `cohort.observation_cutoff` and `provenance.extracted_at` from the response. Keep cohort and stage definitions in the template. Use the same mapping for equivalent HTTP JSON and MCP structured results. Pass a credential reference through configuration and keep the credential itself in the runtime environment.
+
+If the FinGrowth source server is available, refresh against a reviewed sample and reconcile the five counts, dates and computed rates before enabling the real source. Report the field mapping and any unresolved definition or follow-up gaps.
+
 ## Map and validate
 
 1. Build an explicit canonical-target → source-path profile. Distinguish definitions, source names and units; a renamed column is not necessarily the same metric. Reconcile nested unique first-loan people and aligned monetary totals before treating source rows as cohorts.

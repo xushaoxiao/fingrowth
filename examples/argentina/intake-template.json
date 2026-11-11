@@ -1,0 +1,74 @@
+{
+  "document_type": "fingrowth.registration-credit-intake",
+  "version": "0.1",
+  "status": "ready_for_analysis",
+  "provenance": {
+    "data_kind": "synthetic",
+    "source": "Argentina project · mock aggregate",
+    "authorization_reference": null,
+    "extracted_at": null
+  },
+  "cohort": {
+    "product": "Consumer lending demo",
+    "market": "Argentina",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "registration_start": null,
+    "registration_end": null,
+    "observation_cutoff": null,
+    "completion_window_days": 7,
+    "unit": "unique first-registered person",
+    "definition_confirmed": true,
+    "journey_selection": "First journey linked to initial registration"
+  },
+  "stages": [
+    {
+      "id": "registered",
+      "proposed_definition": "首次成功创建有效账号",
+      "definition_confirmed": true,
+      "source_event_or_rule": "people.signup_success",
+      "unique_people": null
+    },
+    {
+      "id": "profile_completed",
+      "proposed_definition": "必填资料通过后端校验并保存",
+      "definition_confirmed": true,
+      "source_event_or_rule": "people.profile_saved",
+      "unique_people": null
+    },
+    {
+      "id": "kyc_passed",
+      "proposed_definition": "身份核验最终通过",
+      "definition_confirmed": true,
+      "source_event_or_rule": "people.identity_pass",
+      "unique_people": null
+    },
+    {
+      "id": "bank_details_completed",
+      "proposed_definition": "必填银行资料通过后端校验并成功保存",
+      "definition_confirmed": true,
+      "source_event_or_rule": "people.bank_details_saved",
+      "unique_people": null
+    },
+    {
+      "id": "credit_approved",
+      "proposed_definition": "首次授信审批通过，不是提交申请或放款",
+      "definition_confirmed": true,
+      "source_event_or_rule": "people.credit_decision_approved",
+      "unique_people": null
+    }
+  ],
+  "quality_checks": {
+    "same_cohort": true,
+    "unique_people_deduplicated": true,
+    "ordered_nested_path": true,
+    "equal_followup_or_censoring_handled": true,
+    "same_journey_linkage": true
+  },
+  "interpretation": {
+    "bottleneck": null,
+    "root_cause": null,
+    "experiment": null,
+    "rates_computed": false
+  },
+  "privacy_note": "仅填经过授权的匿名聚合数据；不要填用户ID、PII、银行卡、密钥或生产配置。本文件不是现有analyze.py/dashboard输入。"
+}

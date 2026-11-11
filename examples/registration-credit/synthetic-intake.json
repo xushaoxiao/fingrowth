@@ -1,0 +1,74 @@
+{
+  "document_type": "fingrowth.registration-credit-intake",
+  "version": "0.1",
+  "status": "ready_for_analysis",
+  "provenance": {
+    "data_kind": "synthetic",
+    "source": "FinGrowth invented fixed-window example",
+    "authorization_reference": null,
+    "extracted_at": "2026-02-08T00:00:00Z"
+  },
+  "cohort": {
+    "product": "Synthetic lending",
+    "market": "Demo",
+    "timezone": "Etc/UTC",
+    "registration_start": "2026-01-01",
+    "registration_end": "2026-01-31",
+    "observation_cutoff": "2026-02-07",
+    "completion_window_days": 7,
+    "unit": "unique first-registered person",
+    "definition_confirmed": true,
+    "journey_selection": "First journey linked to initial registration"
+  },
+  "stages": [
+    {
+      "id": "registered",
+      "proposed_definition": "首次成功创建有效账号",
+      "definition_confirmed": true,
+      "source_event_or_rule": "Synthetic milestone registered",
+      "unique_people": 1000
+    },
+    {
+      "id": "profile_completed",
+      "proposed_definition": "必填资料通过后端校验并保存",
+      "definition_confirmed": true,
+      "source_event_or_rule": "Synthetic milestone profile_completed",
+      "unique_people": 700
+    },
+    {
+      "id": "kyc_passed",
+      "proposed_definition": "身份核验最终通过",
+      "definition_confirmed": true,
+      "source_event_or_rule": "Synthetic milestone kyc_passed",
+      "unique_people": 560
+    },
+    {
+      "id": "bank_details_completed",
+      "proposed_definition": "必填银行资料通过后端校验并成功保存",
+      "definition_confirmed": true,
+      "source_event_or_rule": "Synthetic milestone bank_details_completed",
+      "unique_people": 280
+    },
+    {
+      "id": "credit_approved",
+      "proposed_definition": "首次授信审批通过，不是提交申请或放款",
+      "definition_confirmed": true,
+      "source_event_or_rule": "Synthetic milestone credit_approved",
+      "unique_people": 224
+    }
+  ],
+  "quality_checks": {
+    "same_cohort": true,
+    "unique_people_deduplicated": true,
+    "ordered_nested_path": true,
+    "equal_followup_or_censoring_handled": true,
+    "same_journey_linkage": true
+  },
+  "interpretation": {
+    "bottleneck": null,
+    "root_cause": null,
+    "experiment": null,
+    "rates_computed": false
+  },
+  "privacy_note": "仅填经过授权的匿名聚合数据；不要填用户ID、PII、银行卡、密钥或生产配置。本文件不是现有analyze.py/dashboard输入。"
+}

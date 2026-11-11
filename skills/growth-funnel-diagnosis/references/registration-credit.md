@@ -53,4 +53,10 @@
 3. 实际各阶段成功定义、聚合来源及授权范围；不能仅靠模板声明证明授权或隐私。
 4. 如有则补充互斥最终状态与渠道/版本分组；无数据时保持未知。
 
-使用 [采集模板](../assets/registration-credit-intake.json)。它是 **intake 文件**，不是九阶段 analyze.py 或 dashboard workspace 的输入格式。现有分析器仅接受显式合成数据；不得把真实资料改标 synthetic，或把“银行资料完成”塞进“放款”等含义不同的字段来绕过校验。收到授权聚合数据后，采用符合这五个阶段定义的计算方法，并披露执行方法和校验结果。
+## 从采集模板生成报告
+
+复制 [采集模板](../assets/registration-credit-intake.json) 后填写已确认的信息。现有模板可在 `provenance` 下补上 `data_kind`。合成数据填 `synthetic`，经授权的匿名汇总填 `approved_aggregate` 并提供非敏感的授权参考。填写来源、带明确 UTC 偏移的提取时间、旅程选择规则、阶段成功条件和聚合规则。确认 cohort、五阶段及全部质量检查后，将状态改为 `ready_for_analysis`。解释字段留待人工复核。
+
+计算器支持统一的固定随访窗口。注册起止日和观察截止日均按 IANA 业务时区解释为包含当天的本地日历日期。每位用户只统计到其注册日加上 `completion_window_days` 后的当地日末。观察截止须覆盖最后一个注册日的完整窗口，提取时间须晚于观察截止日末。源端负责逐人套用窗口、排除逾期事件并核实去重及旅程关联。若当前只有快照或不完整随访，继续使用采集模板记录证据缺口。
+
+使用 Python 3.10+ 和系统 IANA 时区数据库运行 `scripts/analyze_registration_credit.py`。返回 JSON，指定 `--format markdown` 可生成中文报告。零分母显示未知，排名保留并列。报告基于声明的匿名聚合口径，授权和源端计算由负责人核实。该格式与九阶段合成分析器、Dashboard workspace 分开。

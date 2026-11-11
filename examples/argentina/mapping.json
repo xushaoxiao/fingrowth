@@ -1,0 +1,14 @@
+{
+  "template": "intake-template.json",
+  "field_map": {
+    "registered": "people.signup_success",
+    "profile_completed": "people.profile_saved",
+    "kyc_passed": "people.identity_pass",
+    "bank_details_completed": "people.bank_details_saved",
+    "credit_approved": "people.credit_decision_approved",
+    "cohort.registration_start": "window.from",
+    "cohort.registration_end": "window.to",
+    "cohort.observation_cutoff": "window.observed_through",
+    "provenance.extracted_at": "window.published_at"
+  }
+}

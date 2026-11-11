@@ -28,7 +28,7 @@ The report includes step denominators, investigation candidates by count and con
 
 ## First business workflow
 
-[Registration → profile → KYC → bank details → credit approval](examples/registration-credit/README.md) is the first selected business journey. Its aggregate intake keeps counts and observation windows unknown until supplied and reviewed. It is separate from the nine-stage synthetic calculator contract; no conversion or bottleneck is claimed yet.
+[Registration → profile → KYC → bank details → credit approval](examples/registration-credit/README.md) is the first selected business journey. A dedicated calculator validates a reviewed aggregate intake and reports adjacent and cumulative conversion. Try the synthetic example in the walkthrough. Business results require approved aggregate counts and confirmed observation windows.
 
 ## Use the Skills
 
@@ -52,7 +52,7 @@ npm ci
 npm run dev
 ```
 
-Read [the dashboard guide](docs/DASHBOARD.md) and [data contract](docs/DATA-CONTRACT.md). The app runs locally and exports as static files; imported data stays in tab memory.
+Read [the dashboard guide](docs/DASHBOARD.md) and [data contract](docs/DATA-CONTRACT.md). The app runs locally and exports as static files. Imported workspaces stay in tab memory. For live refresh of a five-stage aggregate, follow the [HTTP and MCP source guide](docs/CONNECTED-SOURCES.md).
 
 ## Plan one binary experiment (next iteration)
 
@@ -68,7 +68,7 @@ These invented assumptions require 4,129 people per arm. Recruitment and primary
 
 Synthetic aggregate cohorts → validated inputs → explainable metrics → evidence-led investigation → human-reviewed experiment.
 
-Agents advise; scripts calculate; humans own lending, risk and launch decisions. The calculator accepts explicitly synthetic fixtures only. Skills can reason over approved anonymous aggregates using an authorized method; never relabel real data as synthetic.
+Agents advise; scripts calculate; humans own lending, risk and launch decisions. The nine-stage analyzer uses synthetic fixtures. The registration-to-credit calculator also accepts approved anonymous aggregates under its own intake contract.
 
 Read the [complete case](examples/lending/CASE.md), [metric contract](docs/METRICS.md), [guardrails](docs/GUARDRAILS.md), [skill specification](docs/SKILL-SPEC.md) and [roadmap](docs/ROADMAP.md).
 

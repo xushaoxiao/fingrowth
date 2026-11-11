@@ -12,6 +12,11 @@ import {
   Table,
   TextArea,
 } from "@heroui/react";
+import {
+  CREDIT_STAGES,
+  type FunnelSource,
+  type FunnelState,
+} from "../lib/connected-funnel";
 import sample from "../../examples/dashboard/workspace.json";
 import { THEMES, resolveTheme, type ThemeId } from "../lib/themes";
 import {
@@ -26,10 +31,21 @@ import {
 } from "../lib/workspace";
 
 type View =
-  "overview" | "funnel" | "economics" | "experiments" | "delivery" | "sources";
+  | "overview"
+  | "funnel"
+  | "economics"
+  | "experiments"
+  | "delivery"
+  | "sources"
+  | "registration-credit";
 const NAV: { id: View; label: string; icon: string }[] = [
   { id: "overview", label: "Overview", icon: "grid" },
   { id: "funnel", label: "Growth funnel", icon: "funnel" },
+  {
+    id: "registration-credit",
+    label: "Registration to credit",
+    icon: "funnel",
+  },
   { id: "economics", label: "Unit economics", icon: "chart" },
   { id: "experiments", label: "Experiments", icon: "flask" },
   { id: "delivery", label: "Delivery plan", icon: "layers" },
@@ -274,6 +290,239 @@ function LeaderCard({
     </div>
   );
 }
+function ConnectedFunnel() {
+  const [sources, setSources] = useState<FunnelSource[]>([]);
+  const [selected, setSelected] = useState("");
+  const [status, setStatus] = useState("Loading configured sources…");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function load() {
+      try {
+        const response = await fetch("/api/sources", {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error();
+        const available: FunnelSource[] = await response.json();
+        if (!Array.isArray(available) || !available.length) throw new Error();
+        setSources(available);
+        setSelected(available[0].id);
+        setStatus("");
+      } catch {
+        if (!controller.signal.aborted) {
+          setStatus(
+            "Start the FinGrowth server with a source configuration to refresh this funnel.",
+          );
+        }
+      }
+    }
+    void load();
+    return () => controller.abort();
+  }, []);
+
+  return (
+    <>
+      <div className="context-bar">
+        <div className="context-meta">
+          {selected ? (
+            <Pill>
+              {sources
+                .find((source) => source.id === selected)
+                ?.transport.toUpperCase()}
+            </Pill>
+          ) : (
+            <span role="status">{status}</span>
+          )}
+        </div>
+        {selected && (
+          <Select
+            aria-label="Aggregate data source"
+            className="cohort-select source-select"
+            value={selected}
+            onChange={(value) => {
+              if (value !== null) setSelected(String(value));
+            }}
+          >
+            <Select.Trigger>
+              <Select.Value />
+              <Select.Indicator />
+            </Select.Trigger>
+            <Select.Popover>
+              <ListBox aria-label="Configured data sources">
+                {sources.map((source) => (
+                  <ListBox.Item
+                    id={source.id}
+                    key={source.id}
+                    textValue={source.label}
+                  >
+                    {source.label} <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                ))}
+              </ListBox>
+            </Select.Popover>
+          </Select>
+        )}
+      </div>
+      {selected && <ConnectedFunnelSource key={selected} id={selected} />}
+    </>
+  );
+}
+
+function ConnectedFunnelSource({ id }: { id: string }) {
+  const [state, setState] = useState<FunnelState>({
+    snapshot: null,
+    error: null,
+  });
+  const [busy, setBusy] = useState(true);
+  const endpoint = "/api/sources/" + encodeURIComponent(id);
+  useEffect(() => {
+    const controller = new AbortController();
+    async function load() {
+      try {
+        const response = await fetch(endpoint, { signal: controller.signal });
+        if (!response.ok) throw new Error();
+        setState(await response.json());
+      } catch {
+        if (!controller.signal.aborted) {
+          setState({
+            snapshot: null,
+            error: "Could not load the saved result.",
+          });
+        }
+      } finally {
+        if (!controller.signal.aborted) setBusy(false);
+      }
+    }
+    void load();
+    return () => controller.abort();
+  }, [endpoint]);
+
+  async function refresh() {
+    setBusy(true);
+    try {
+      const response = await fetch(endpoint + "/refresh", { method: "POST" });
+      if (response.status !== 200 && response.status !== 502) throw new Error();
+      setState(await response.json());
+    } catch {
+      setState((previous) => ({
+        ...previous,
+        error: "Could not reach the FinGrowth server.",
+      }));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const snapshot = state.snapshot;
+  const report = snapshot?.report;
+  const cohort = report?.cohort;
+  const adjacent = (rate: number | null | undefined) =>
+    rate == null ? "Unknown" : (rate * 100).toFixed(2) + "%";
+  return (
+    <>
+      <Panel
+        title={
+          cohort
+            ? cohort.market + " · " + cohort.product
+            : "Registration → credit approval"
+        }
+        action={
+          <Button
+            variant="primary"
+            isDisabled={busy}
+            onPress={() => void refresh()}
+          >
+            {busy ? "Loading…" : "Refresh data"}
+          </Button>
+        }
+      >
+        {state.error && (
+          <div className="error-message" role="alert">
+            Refresh unavailable. {state.error}{" "}
+            {snapshot && "Showing the last successful result."}
+          </div>
+        )}
+        {snapshot && report && cohort ? (
+          <>
+            <div className="definition-list source-definitions">
+              <div>
+                <span>Source</span>
+                <strong>{snapshot.source}</strong>
+              </div>
+              <div>
+                <span>Registration window</span>
+                <strong>
+                  {cohort.registration_start} → {cohort.registration_end}
+                </strong>
+              </div>
+              <div>
+                <span>Observed through</span>
+                <strong>
+                  {cohort.observation_cutoff} · {cohort.completion_window_days}
+                  -day follow-up
+                </strong>
+              </div>
+              <div>
+                <span>Business timezone</span>
+                <strong>{cohort.timezone}</strong>
+              </div>
+              <div>
+                <span>Extracted at</span>
+                <time dateTime={snapshot.extracted_at}>
+                  {snapshot.extracted_at}
+                </time>
+              </div>
+              <div>
+                <span>Last successful refresh</span>
+                <time dateTime={snapshot.refreshed_at}>
+                  {snapshot.refreshed_at}
+                </time>
+              </div>
+            </div>
+            <p className="footnote" role="status">
+              {report.data_kind === "synthetic"
+                ? "Synthetic data"
+                : "Declared approved aggregate"}{" "}
+              · {adjacent(report.cumulative_conversion.credit_approved)} of
+              registered people reached credit approval
+            </p>
+            <DataTable
+              label="Registration to credit funnel"
+              headers={[
+                "Stage",
+                "People",
+                "Previous stage",
+                "Not progressed",
+                "Step conversion",
+                "From registration",
+              ]}
+              rows={snapshot.stages.map(({ id: stage, definition }, index) => {
+                const step = report.steps[index - 1];
+                return [
+                  <strong key={stage} title={definition}>
+                    {CREDIT_STAGES[stage]}
+                  </strong>,
+                  num(report.counts[stage]),
+                  step ? num(step.population) : "—",
+                  step ? num(step.not_progressed) : "—",
+                  step ? adjacent(step.conversion) : "Entry",
+                  step ? adjacent(report.cumulative_conversion[stage]) : "—",
+                ];
+              })}
+            />
+          </>
+        ) : (
+          !busy && (
+            <p className="empty">
+              Refresh the selected source to load its five-stage funnel.
+            </p>
+          )
+        )}
+      </Panel>
+    </>
+  );
+}
+
 export default function Dashboard() {
   const [theme, setTheme] = useState<ThemeId>("default");
   const [themeReady, setThemeReady] = useState(false);
@@ -437,7 +686,10 @@ export default function Dashboard() {
             </Select>
 
             <span className="local-status">
-              <span className="status-dot" /> Browser-local workspace
+              <span className="status-dot" />
+              {view === "registration-credit"
+                ? "Configured data source"
+                : "Browser-local workspace"}
             </span>
             <span className="user-avatar">S</span>
           </div>
@@ -458,18 +710,22 @@ export default function Dashboard() {
                         ? "Measure growth after acquisition cost and credit loss."
                         : view === "experiments"
                           ? "Turn a hypothesis into a reviewable decision."
-                          : "Connect every initiative to an owner and acceptance check."}
+                          : view === "registration-credit"
+                            ? "Review five stages from a configured aggregate source."
+                            : "Connect every initiative to an owner and acceptance check."}
               </p>
             </div>
-            <Button
-              className="import-button"
-              onPress={() => {
-                setError("");
-                setImportOpen(true);
-              }}
-            >
-              <Icon name="upload" /> Import workspace
-            </Button>
+            {view !== "registration-credit" && (
+              <Button
+                className="import-button"
+                onPress={() => {
+                  setError("");
+                  setImportOpen(true);
+                }}
+              >
+                <Icon name="upload" /> Import workspace
+              </Button>
+            )}
           </div>
           {notice && (
             <div className="notice" role="status">
@@ -484,45 +740,49 @@ export default function Dashboard() {
               </Button>
             </div>
           )}
-          <div className="context-bar">
-            <div className="context-meta">
-              <Pill
-                tone={workspace.data_mode === "synthetic" ? "sage" : "amber"}
+          {view === "registration-credit" ? (
+            <ConnectedFunnel />
+          ) : (
+            <div className="context-bar">
+              <div className="context-meta">
+                <Pill
+                  tone={workspace.data_mode === "synthetic" ? "sage" : "amber"}
+                >
+                  {workspace.data_mode === "synthetic"
+                    ? "Synthetic demo"
+                    : "Declared approved aggregate"}
+                </Pill>
+                <span>{workspace.name}</span>
+                <span className="context-divider" />
+                <span>{cohort.window.replace("/", " → ")}</span>
+              </div>
+              <Select
+                aria-label="Select cohort"
+                className="cohort-select"
+                value={selected}
+                onChange={(value) => setSelected(String(value ?? "0"))}
               >
-                {workspace.data_mode === "synthetic"
-                  ? "Synthetic demo"
-                  : "Declared approved aggregate"}
-              </Pill>
-              <span>{workspace.name}</span>
-              <span className="context-divider" />
-              <span>{cohort.window.replace("/", " → ")}</span>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox aria-label="Cohorts">
+                    {workspace.cohorts.map((item, i) => (
+                      <ListBox.Item
+                        id={String(i)}
+                        key={i}
+                        textValue={item.cohort}
+                      >
+                        {item.cohort}
+                        <ListBox.ItemIndicator />
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
+              </Select>
             </div>
-            <Select
-              aria-label="Select cohort"
-              className="cohort-select"
-              value={selected}
-              onChange={(value) => setSelected(String(value ?? "0"))}
-            >
-              <Select.Trigger>
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox aria-label="Cohorts">
-                  {workspace.cohorts.map((item, i) => (
-                    <ListBox.Item
-                      id={String(i)}
-                      key={i}
-                      textValue={item.cohort}
-                    >
-                      {item.cohort}
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select>
-          </div>
+          )}
           {view === "overview" && (
             <>
               <div className="kpi-grid">
@@ -1019,18 +1279,20 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          <footer className="page-footer">
-            <span>
-              <span className="status-dot" />{" "}
-              {workspace.data_mode === "synthetic"
-                ? "All demo data is invented."
-                : "Aggregate approval is declared by the source owner."}{" "}
-              No live actions.
-            </span>
-            <span>
-              Observed through {cohort.outcome_as_of} · {cohort.currency}
-            </span>
-          </footer>
+          {view !== "registration-credit" && (
+            <footer className="page-footer">
+              <span>
+                <span className="status-dot" />{" "}
+                {workspace.data_mode === "synthetic"
+                  ? "All demo data is invented."
+                  : "Aggregate approval is declared by the source owner."}{" "}
+                No live actions.
+              </span>
+              <span>
+                Observed through {cohort.outcome_as_of} · {cohort.currency}
+              </span>
+            </footer>
+          )}
         </main>
       </div>
       <Modal isOpen={importOpen} onOpenChange={setImportOpen}>

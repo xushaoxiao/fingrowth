@@ -373,6 +373,9 @@ h1 {
   width: 160px;
   flex-shrink: 0;
 }
+.cohort-select.source-select {
+  width: min(220px, 70%);
+}
 .cohort-select .select__trigger {
   min-height: 30px;
   padding: 5px 10px;

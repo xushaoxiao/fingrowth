@@ -1,0 +1,15 @@
+{
+  "window": {
+    "from": "2026-01-01",
+    "to": "2026-01-31",
+    "observed_through": "2026-02-07",
+    "published_at": "2026-02-08T09:00:00-03:00"
+  },
+  "people": {
+    "signup_success": 1000,
+    "profile_saved": 700,
+    "identity_pass": 560,
+    "bank_details_saved": 280,
+    "credit_decision_approved": 224
+  }
+}

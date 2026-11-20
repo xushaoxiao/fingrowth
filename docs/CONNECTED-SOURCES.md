@@ -49,3 +49,5 @@ The source connection runs in the localhost FinGrowth process. The browser recei
 ```
 
 The integration test compares HTTP and MCP outputs using the same mapping and verifies that a failed refresh preserves the last valid result.
+
+Account-based sources use intake version `0.2`. Set the cohort unit to `unique registered account`, supply each stage as `unique_accounts` and confirm `unique_accounts_deduplicated`. Map `provenance.snapshot_id` to the upstream immutable snapshot identifier. Pin the source URL to the reviewed snapshot. For a service-authenticated source, run the project’s authorized HTTP client near FinGrowth and expose its verified aggregate on loopback. The business service owns cohort linkage, follow-up and snapshot storage.

@@ -128,11 +128,16 @@ def load_sources(path):
             mapping_path = path.parent / config["mapping"]
             mapping = funnel.fields(read_json(mapping_path), "template field_map", f"{key}.mapping")
             funnel.require_text(mapping["template"], f"{key}.mapping.template")
-            if not isinstance(mapping["field_map"], dict) or mapping["field_map"].keys() != MAPPED_FIELDS:
-                raise ValueError(f"{key}: map each stage count, all three dates and extracted_at")
+            mapping["template"] = read_json(mapping_path.parent / mapping["template"])
+            if not isinstance(mapping["template"], dict):
+                raise ValueError(f"{key}: invalid intake template")
+            required_fields = MAPPED_FIELDS
+            if mapping["template"].get("version") == "0.2":
+                required_fields = MAPPED_FIELDS | {"provenance.snapshot_id"}
+            if not isinstance(mapping["field_map"], dict) or mapping["field_map"].keys() != required_fields:
+                raise ValueError(f"{key}: map each stage count and required observation metadata")
             for source_path in mapping["field_map"].values():
                 funnel.require_text(source_path, f"{key}.mapping.field_map path")
-            mapping["template"] = read_json(mapping_path.parent / mapping["template"])
             config["mapping"] = mapping
     return configs
 
@@ -154,7 +159,10 @@ def normalize(payload, config):
         provenance["extracted_at"] = lookup(payload, paths["provenance.extracted_at"])
         for field in ("registration_start", "registration_end", "observation_cutoff"):
             cohort[field] = lookup(payload, paths[f"cohort.{field}"])
-        stages = [{**stage, "unique_people": lookup(payload, paths[stage["id"]])}
+        _, counter = funnel.POPULATIONS[template["version"]]
+        if template["version"] == "0.2":
+            provenance["snapshot_id"] = lookup(payload, paths["provenance.snapshot_id"])
+        stages = [{**stage, counter: lookup(payload, paths[stage["id"]])}
                   for stage in template["stages"]]
     except (TypeError, KeyError):
         raise ValueError("invalid intake template") from None

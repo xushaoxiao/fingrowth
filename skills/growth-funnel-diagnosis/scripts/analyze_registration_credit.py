@@ -21,10 +21,14 @@ STAGES = {
     "credit_approved": "授信通过",
 }
 CHECKS = (
-    "same_cohort", "unique_people_deduplicated", "ordered_nested_path",
+    "same_cohort", "ordered_nested_path",
     "equal_followup_or_censoring_handled", "same_journey_linkage",
 )
-UNIT = "unique first-registered person"
+# Each contract fixes the population, the stage counter and its quality assertion.
+POPULATIONS = {
+    "0.1": ("unique first-registered person", "unique_people"),
+    "0.2": ("unique registered account", "unique_accounts"),
+}
 
 
 def fields(value, names, label):
@@ -46,14 +50,20 @@ def exact_conversion(step):
 def analyze_intake(intake):
     fields(intake, "document_type version status provenance cohort stages quality_checks interpretation privacy_note",
            "intake")
-    if intake["document_type"] != "fingrowth.registration-credit-intake" or intake["version"] != "0.1":
+    if intake["document_type"] != "fingrowth.registration-credit-intake" or intake["version"] not in ("0.1", "0.2"):
         raise ValueError("unsupported intake type or version")
+    unit, counter = POPULATIONS[intake["version"]]
     if intake["status"] != "ready_for_analysis":
         raise ValueError("intake status must be ready_for_analysis after review")
     fields(intake["interpretation"], "bottleneck root_cause experiment rates_computed", "interpretation")
     require_text(intake["privacy_note"], "privacy_note")
 
-    provenance = fields(intake["provenance"], "data_kind source authorization_reference extracted_at", "provenance")
+    provenance_fields = "data_kind source authorization_reference extracted_at"
+    if intake["version"] == "0.2":
+        provenance_fields += " snapshot_id"
+    provenance = fields(intake["provenance"], provenance_fields, "provenance")
+    if intake["version"] == "0.2":
+        require_text(provenance["snapshot_id"], "provenance.snapshot_id")
     kind = provenance["data_kind"]
     if kind not in ("synthetic", "approved_aggregate"):
         raise ValueError("data_kind must be synthetic or approved_aggregate")
@@ -64,8 +74,8 @@ def analyze_intake(intake):
     cohort = fields(intake["cohort"],
                     "product market timezone registration_start registration_end observation_cutoff "
                     "completion_window_days unit definition_confirmed journey_selection", "cohort")
-    if cohort["unit"] != UNIT or cohort["definition_confirmed"] is not True:
-        raise ValueError("confirm the unique first-registered-person cohort definition")
+    if cohort["unit"] != unit or cohort["definition_confirmed"] is not True:
+        raise ValueError(f"confirm the {unit} cohort definition")
     for name in ("product", "market", "journey_selection", "timezone"):
         require_text(cohort[name], f"cohort.{name}")
     try:
@@ -86,8 +96,9 @@ def analyze_intake(intake):
     if extraction.astimezone(timezone).date() <= cutoff:
         raise ValueError("extraction must be after the end of the local observation cutoff date")
 
-    checks = fields(intake["quality_checks"], " ".join(CHECKS), "quality_checks")
-    for name in CHECKS:
+    required_checks = (*CHECKS, counter + "_deduplicated")
+    checks = fields(intake["quality_checks"], " ".join(required_checks), "quality_checks")
+    for name in required_checks:
         if checks[name] is not True:
             raise ValueError(f"quality_checks.{name} must be confirmed")
 
@@ -97,14 +108,14 @@ def analyze_intake(intake):
     counts = {}
     previous = None
     for expected, stage in zip(STAGES, stages):
-        fields(stage, "id proposed_definition definition_confirmed source_event_or_rule unique_people", expected)
+        fields(stage, f"id proposed_definition definition_confirmed source_event_or_rule {counter}", expected)
         if stage["id"] != expected or stage["definition_confirmed"] is not True:
             raise ValueError(f"expected confirmed stage {expected}")
         for name in ("proposed_definition", "source_event_or_rule"):
             require_text(stage[name], f"{expected}.{name}")
-        count = stage["unique_people"]
+        count = stage[counter]
         if type(count) is not int or count < 0 or (previous is not None and count > previous):
-            raise ValueError(f"{expected}.unique_people must be a nonnegative nested integer count")
+            raise ValueError(f"{expected}.{counter} must be a nonnegative nested integer count")
         counts[expected] = count
         previous = count
 
@@ -119,6 +130,7 @@ def analyze_intake(intake):
     registered = counts["registered"]
     return {
         "data_kind": kind,
+        **({"snapshot_id": provenance["snapshot_id"]} if "snapshot_id" in provenance else {}),
         "cohort": {name: cohort[name] for name in (
             "product", "market", "timezone", "registration_start", "registration_end",
             "observation_cutoff", "completion_window_days", "unit")},
@@ -143,13 +155,14 @@ def percent(rate):
 
 def render_markdown(result):
     cohort = result["cohort"]
+    label = "账户数" if cohort["unit"] == POPULATIONS["0.2"][0] else "人数"
     lines = [
         "# 注册到授信漏斗", "",
         f"数据声明：{result['data_kind']}。产品 {_text(cohort['product'])} · 市场 {_text(cohort['market'])}。",
         f"注册窗口 {cohort['registration_start']} 至 {cohort['registration_end']}，"
         f"观察截止 {cohort['observation_cutoff']}（{_text(cohort['timezone'])}），"
         f"固定随访 {cohort['completion_window_days']} 天。", "",
-        "| 阶段 | 上一步人数 | 继续人数 | 未继续人数 | 相邻转化率 | 相对注册累计转化率 |",
+        f"| 阶段 | 上一步{label} | 继续{label} | 未继续{label} | 相邻转化率 | 相对注册累计转化率 |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for step in result["steps"]:
@@ -160,7 +173,7 @@ def render_markdown(result):
     lines.extend(["", "## 调查优先级", ""])
     candidates = result["investigation_candidates"]
     for key, label, score in (
-        ("by_not_progressed", "未继续人数最多", lambda step: step["not_progressed"]),
+        ("by_not_progressed", f"未继续{label}最多", lambda step: step["not_progressed"]),
         ("by_lowest_conversion", "相邻转化率最低", exact_conversion),
     ):
         ranked = candidates[key]

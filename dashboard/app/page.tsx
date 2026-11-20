@@ -416,6 +416,7 @@ function ConnectedFunnelSource({ id }: { id: string }) {
   const snapshot = state.snapshot;
   const report = snapshot?.report;
   const cohort = report?.cohort;
+  const accountCohort = cohort?.unit === "unique registered account";
   const adjacent = (rate: number | null | undefined) =>
     rate == null ? "Unknown" : (rate * 100).toFixed(2) + "%";
   return (
@@ -449,6 +450,12 @@ function ConnectedFunnelSource({ id }: { id: string }) {
                 <span>Source</span>
                 <strong>{snapshot.source}</strong>
               </div>
+              {report.snapshot_id && (
+                <div>
+                  <span>Source snapshot</span>
+                  <strong>{report.snapshot_id}</strong>
+                </div>
+              )}
               <div>
                 <span>Registration window</span>
                 <strong>
@@ -484,13 +491,13 @@ function ConnectedFunnelSource({ id }: { id: string }) {
                 ? "Synthetic data"
                 : "Declared approved aggregate"}{" "}
               · {adjacent(report.cumulative_conversion.credit_approved)} of
-              registered people reached credit approval
+              registered {accountCohort ? "accounts" : "people"} reached credit approval
             </p>
             <DataTable
               label="Registration to credit funnel"
               headers={[
                 "Stage",
-                "People",
+                accountCohort ? "Accounts" : "People",
                 "Previous stage",
                 "Not progressed",
                 "Step conversion",

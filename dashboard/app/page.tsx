@@ -186,15 +186,21 @@ function DataTable({
   headers,
   rows,
   label,
+  alignMetrics = false,
 }: {
   headers: string[];
   rows: React.ReactNode[][];
   label: string;
+  alignMetrics?: boolean;
 }) {
   const columns = headers.map((title, i) => ({
     id: "column-" + i,
     title,
     index: i,
+    numeric: alignMetrics && i > 0 && rows.length > 0 && rows.every(row => {
+      const value = row[i];
+      return typeof value === "string" && /^(?:[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?|—)$/.test(value);
+    }),
   }));
   const items = rows.map((cells, i) => ({ id: "row-" + i, cells }));
   return (
@@ -203,7 +209,11 @@ function DataTable({
         <Table.Content aria-label={label}>
           <Table.Header columns={columns}>
             {(column) => (
-              <Table.Column id={column.id} isRowHeader={column.index === 0}>
+              <Table.Column
+                id={column.id}
+                className={column.numeric ? "numeric-column" : undefined}
+                isRowHeader={column.index === 0}
+              >
                 {column.title}
               </Table.Column>
             )}
@@ -211,7 +221,11 @@ function DataTable({
           <Table.Body items={items}>
             {(row) => (
               <Table.Row id={row.id} columns={columns}>
-                {(column) => <Table.Cell>{row.cells[column.index]}</Table.Cell>}
+                {(column) => (
+                  <Table.Cell className={column.numeric ? "numeric-column" : undefined}>
+                    {row.cells[column.index]}
+                  </Table.Cell>
+                )}
               </Table.Row>
             )}
           </Table.Body>
@@ -621,7 +635,6 @@ export default function Dashboard() {
             <strong>{project?.name ?? "Growth workspace"}</strong>
             <span>{project?.environment ?? "Consumer fintech"}</span>
           </div>
-          <span className="tiny-chevron">⌄</span>
         </div>
         <div className="nav-title">WORKSPACE</div>
         <nav aria-label="Workspace sections">
@@ -715,9 +728,9 @@ export default function Dashboard() {
         <main id="main-content">
           <div className="page-heading">
             <div>
-              <div className="heading-eyebrow">GROWTH ENGINEERING</div>
+              {project && <div className="project-context">{project.name} · {project.environment}</div>}
               <h1>{active.label}</h1>
-              <p>
+              {!project && <p>
                 {view === "overview"
                   ? "Connect acquisition, customer journeys and risk-adjusted value."
                   : view === "sources"
@@ -731,7 +744,7 @@ export default function Dashboard() {
                           : view === "registration-credit"
                             ? "Review five stages from a configured aggregate source."
                             : "Connect every initiative to an owner and acceptance check."}
-              </p>
+              </p>}
             </div>
             {!project && view !== "registration-credit" && (
               <Button
@@ -759,11 +772,18 @@ export default function Dashboard() {
             </div>
           )}
           {project && view !== "registration-credit" ? (
-            project.views[view].map(panel => (
-              <Panel key={panel.title} title={panel.title}>
-                <DataTable label={panel.title} headers={panel.headers} rows={panel.rows} />
-              </Panel>
-            ))
+            <div className="project-panels">
+              {project.views[view].map(panel => (
+                <Panel key={panel.title} title={panel.title}>
+                  <DataTable
+                    label={panel.title}
+                    headers={panel.headers}
+                    rows={panel.rows}
+                    alignMetrics
+                  />
+                </Panel>
+              ))}
+            </div>
           ) : view === "registration-credit" ? (
             <ConnectedFunnel />
           ) : (

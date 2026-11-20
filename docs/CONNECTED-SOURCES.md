@@ -51,3 +51,8 @@ The source connection runs in the localhost FinGrowth process. The browser recei
 The integration test compares HTTP and MCP outputs using the same mapping and verifies that a failed refresh preserves the last valid result.
 
 Account-based sources use intake version `0.2`. Set the cohort unit to `unique registered account`, supply each stage as `unique_accounts` and confirm `unique_accounts_deduplicated`. Map `provenance.snapshot_id` to the upstream immutable snapshot identifier. Pin the source URL to the reviewed snapshot. For a service-authenticated source, run the project’s authorized HTTP client near FinGrowth and expose its verified aggregate on loopback. The business service owns cohort linkage, follow-up and snapshot storage.
+
+
+### Project review views
+
+Pass `--project /path/to/private-project.json` when starting the local dashboard to replace the synthetic overview, diagnostic, economics, experiments, delivery and sources views with reviewed project material. The registration-to-credit view still refreshes from the HTTP or MCP configuration. The project document has `name`, `environment` and `views`. Provide all six view keys (`overview`, `funnel`, `economics`, `experiments`, `delivery`, `sources`). Each view contains an array of panels with a text `title`, an array of text `headers`, and `rows` of text cells matching the column count. Store only approved aggregate review material in this file. Restart the server when replacing a review.

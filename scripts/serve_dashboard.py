@@ -218,7 +218,8 @@ class Sources:
 
 
 class DashboardHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, sources, **kwargs):
+    def __init__(self, *args, sources, project, **kwargs):
+        self.project = project
         self.sources = sources
         super().__init__(*args, **kwargs)
 
@@ -243,6 +244,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if not self.valid_host():
             self.send_error(403)
+        elif self.path == "/api/project":
+            self.send_json(200, self.project)
         elif self.path == "/api/sources":
             self.send_json(200, self.sources.list())
         elif self.path.startswith("/api/"):
@@ -267,21 +270,47 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         self.send_json(*self.sources.refresh(match[1]))
 
 
-def create_server(configs, directory, port):
-    handler = partial(DashboardHandler, sources=Sources(configs), directory=directory)
+def load_project(path):
+    project = funnel.fields(read_json(path), "name environment views", "project")
+    for key in ("name", "environment"):
+        funnel.require_text(project[key], key)
+    views = funnel.fields(project["views"], "overview funnel economics experiments delivery sources", "views")
+    for name, panels in views.items():
+        if not isinstance(panels, list) or not panels:
+            raise ValueError(f"{name} requires at least one panel")
+        for panel in panels:
+            funnel.fields(panel, "title headers rows", "panel")
+            funnel.require_text(panel["title"], "title")
+            headers, rows = panel["headers"], panel["rows"]
+            if not isinstance(headers, list) or not headers or not isinstance(rows, list):
+                raise ValueError("Each panel requires column headers and rows")
+            for header in headers:
+                funnel.require_text(header, "column header")
+            for row in rows:
+                if not isinstance(row, list) or len(row) != len(headers):
+                    raise ValueError("Row size must match column count")
+                for cell in row:
+                    funnel.require_text(cell, "cell")
+    return project
+
+
+def create_server(configs, directory, port, project=None):
+    handler = partial(DashboardHandler, sources=Sources(configs), project=project, directory=directory)
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True, type=Path, help="local source configuration JSON")
+    parser.add_argument("--project", type=Path, help="private project review panels JSON")
     parser.add_argument("--port", type=int, default=4173)
     args = parser.parse_args()
     directory = ROOT / "dashboard/out"
     if not (directory / "index.html").is_file():
         parser.error("build the dashboard first with npm run build")
     try:
-        with create_server(load_sources(args.config), directory, args.port) as server:
+        with create_server(load_sources(args.config), directory, args.port,
+                           load_project(args.project) if args.project else None) as server:
             print(f"FinGrowth listening on http://127.0.0.1:{server.server_port}", flush=True)
             server.serve_forever()
     except (ValueError, OSError, RecursionError) as exc:

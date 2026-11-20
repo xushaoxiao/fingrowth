@@ -38,6 +38,8 @@ type View =
   | "delivery"
   | "sources"
   | "registration-credit";
+type ProjectPanel = { title: string; headers: string[]; rows: string[][] };
+type ProjectReview = { name: string; environment: string; views: Record<Exclude<View, "registration-credit">, ProjectPanel[]> };
 const NAV: { id: View; label: string; icon: string }[] = [
   { id: "overview", label: "Overview", icon: "grid" },
   { id: "funnel", label: "Growth funnel", icon: "funnel" },
@@ -416,6 +418,7 @@ function ConnectedFunnelSource({ id }: { id: string }) {
   const snapshot = state.snapshot;
   const report = snapshot?.report;
   const cohort = report?.cohort;
+  const accountCohort = cohort?.unit === "unique registered account";
   const adjacent = (rate: number | null | undefined) =>
     rate == null ? "Unknown" : (rate * 100).toFixed(2) + "%";
   return (
@@ -449,6 +452,12 @@ function ConnectedFunnelSource({ id }: { id: string }) {
                 <span>Source</span>
                 <strong>{snapshot.source}</strong>
               </div>
+              {report.snapshot_id && (
+                <div>
+                  <span>Source snapshot</span>
+                  <strong>{report.snapshot_id}</strong>
+                </div>
+              )}
               <div>
                 <span>Registration window</span>
                 <strong>
@@ -484,13 +493,13 @@ function ConnectedFunnelSource({ id }: { id: string }) {
                 ? "Synthetic data"
                 : "Declared approved aggregate"}{" "}
               · {adjacent(report.cumulative_conversion.credit_approved)} of
-              registered people reached credit approval
+              registered {accountCohort ? "accounts" : "people"} reached credit approval
             </p>
             <DataTable
               label="Registration to credit funnel"
               headers={[
                 "Stage",
-                "People",
+                accountCohort ? "Accounts" : "People",
                 "Previous stage",
                 "Not progressed",
                 "Step conversion",
@@ -548,6 +557,15 @@ export default function Dashboard() {
   const [workspace, setWorkspace] = useState<Workspace>(() =>
     validateWorkspace(sample),
   );
+  const [project, setProject] = useState<ProjectReview | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/project", {signal: controller.signal})
+      .then(async response => response.ok && response.headers.get("content-type")?.includes("application/json") ? response.json() : null)
+      .then(value => { if (!controller.signal.aborted) setProject(value); })
+      .catch(() => { /* Static exports can run without a source server. */ });
+    return () => controller.abort();
+  }, []);
   const [selected, setSelected] = useState("0");
   const [view, setView] = useState<View>("overview");
   const [importOpen, setImportOpen] = useState(false),
@@ -600,8 +618,8 @@ export default function Dashboard() {
         <div className="workspace-label">
           <span className="workspace-avatar">FG</span>
           <div>
-            <strong>Growth workspace</strong>
-            <span>Consumer fintech</span>
+            <strong>{project?.name ?? "Growth workspace"}</strong>
+            <span>{project?.environment ?? "Consumer fintech"}</span>
           </div>
           <span className="tiny-chevron">⌄</span>
         </div>
@@ -617,7 +635,7 @@ export default function Dashboard() {
             >
               <Icon name={item.icon} />
               {item.label}
-              {item.id === "experiments" && (
+              {!project && item.id === "experiments" && (
                 <span className="nav-count">
                   {workspace.experiments.length}
                 </span>
@@ -687,7 +705,7 @@ export default function Dashboard() {
 
             <span className="local-status">
               <span className="status-dot" />
-              {view === "registration-credit"
+              {project ? project.environment : view === "registration-credit"
                 ? "Configured data source"
                 : "Browser-local workspace"}
             </span>
@@ -715,7 +733,7 @@ export default function Dashboard() {
                             : "Connect every initiative to an owner and acceptance check."}
               </p>
             </div>
-            {view !== "registration-credit" && (
+            {!project && view !== "registration-credit" && (
               <Button
                 className="import-button"
                 onPress={() => {
@@ -740,7 +758,13 @@ export default function Dashboard() {
               </Button>
             </div>
           )}
-          {view === "registration-credit" ? (
+          {project && view !== "registration-credit" ? (
+            project.views[view].map(panel => (
+              <Panel key={panel.title} title={panel.title}>
+                <DataTable label={panel.title} headers={panel.headers} rows={panel.rows} />
+              </Panel>
+            ))
+          ) : view === "registration-credit" ? (
             <ConnectedFunnel />
           ) : (
             <div className="context-bar">
@@ -783,7 +807,7 @@ export default function Dashboard() {
               </Select>
             </div>
           )}
-          {view === "overview" && (
+          {!project && view === "overview" && (
             <>
               <div className="kpi-grid">
                 {[
@@ -941,7 +965,7 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          {view === "funnel" && (
+          {!project && view === "funnel" && (
             <>
               <div className="overview-grid">
                 <Panel
@@ -986,7 +1010,7 @@ export default function Dashboard() {
               </Panel>
             </>
           )}
-          {view === "economics" && (
+          {!project && view === "economics" && (
             <>
               <div className="overview-grid">
                 <Panel
@@ -1074,7 +1098,7 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          {view === "experiments" && (
+          {!project && view === "experiments" && (
             <div className="plan-grid">
               {workspace.experiments.map((item, index) => (
                 <Card key={item.id} className="panel experiment-card">
@@ -1125,7 +1149,7 @@ export default function Dashboard() {
               )}
             </div>
           )}
-          {view === "delivery" && (
+          {!project && view === "delivery" && (
             <Panel
               title="From evidence to delivery"
               detail="Owner roles and statuses are supplied plans, not completed deployments"
@@ -1162,7 +1186,7 @@ export default function Dashboard() {
               )}
             </Panel>
           )}
-          {view === "sources" && (
+          {!project && view === "sources" && (
             <>
               <div className="adapter-flow">
                 <div>
@@ -1279,7 +1303,7 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          {view !== "registration-credit" && (
+          {!project && view !== "registration-credit" && (
             <footer className="page-footer">
               <span>
                 <span className="status-dot" />{" "}

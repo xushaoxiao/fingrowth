@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from examples.argentina.mock_aggregate import AggregateHandler
-from scripts.serve_dashboard import create_server, load_sources
+from scripts.serve_dashboard import create_server, load_project, load_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 DEMO = ROOT / "examples/argentina"
@@ -37,6 +37,21 @@ def request(url, method="GET", headers=None):
 
 
 class ConnectedFunnelTest(unittest.TestCase):
+    def test_project_panels_require_all_views_and_complete_rows(self):
+        views = {key: [{"title": "Cohort", "headers": ["Stage", "Accounts"],
+                        "rows": [["Registered", "5"]]}]
+                 for key in ("overview", "funnel", "economics", "experiments", "delivery", "sources")}
+        project = {"name": "Example", "environment": "Test", "views": views}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "project.json"
+            path.write_text(json.dumps(project))
+            address = start(self, create_server({}, directory, 0, load_project(path)))
+            self.assertEqual(request(address + "/api/project"), (200, project))
+            project["views"]["economics"][0]["rows"][0].pop()
+            path.write_text(json.dumps(project))
+            with self.assertRaisesRegex(ValueError, "column count"):
+                load_project(path)
+
     def test_http_refresh_and_preservation_of_last_valid_snapshot(self):
         data = json.loads((DEMO / "aggregate.json").read_text())
 

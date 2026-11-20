@@ -52,6 +52,22 @@ class RegistrationCreditTest(unittest.TestCase):
         self.assertIn("未继续人数最多：注册 → 填资完成", markdown.stdout)
         self.assertIn("相邻转化率最低：KYC 通过 → 银行资料完成", markdown.stdout)
 
+    def test_account_snapshot_preserves_unit_and_pinned_source_id(self):
+        row = self.intake
+        row["version"] = "0.2"
+        row["cohort"]["unit"] = "unique registered account"
+        row["quality_checks"]["unique_accounts_deduplicated"] = row["quality_checks"].pop("unique_people_deduplicated")
+        for stage in row["stages"]:
+            stage["unique_accounts"] = stage.pop("unique_people")
+        self.assert_invalid(row, "snapshot_id")
+        row["provenance"]["snapshot_id"] = "synthetic-frozen-snapshot"
+        result = self.run_cli(row)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["snapshot_id"], "synthetic-frozen-snapshot")
+        self.assertIn("上一步账户数", self.run_cli(row, "markdown").stdout)
+        row["cohort"]["unit"] = "unique first-registered person"
+        self.assert_invalid(row, "registered account")
+
     def test_blank_template_and_duplicate_keys_fail_without_report(self):
         template = SKILL / "assets/registration-credit-intake.json"
         self.assert_invalid(template.read_text(encoding="utf-8"), "ready_for_analysis")

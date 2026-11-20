@@ -32,7 +32,9 @@ export type FunnelState = {
     stages: { id: CreditStage; definition: string }[];
     report: {
       data_kind: "synthetic" | "approved_aggregate";
+      snapshot_id?: string;
       cohort: {
+        unit: "unique registered account" | "unique first-registered person";
         product: string;
         market: string;
         registration_start: string;

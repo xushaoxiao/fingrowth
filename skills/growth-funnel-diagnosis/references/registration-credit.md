@@ -60,3 +60,5 @@
 计算器支持统一的固定随访窗口。注册起止日和观察截止日均按 IANA 业务时区解释为包含当天的本地日历日期。每位用户只统计到其注册日加上 `completion_window_days` 后的当地日末。观察截止须覆盖最后一个注册日的完整窗口，提取时间须晚于观察截止日末。源端负责逐人套用窗口、排除逾期事件并核实去重及旅程关联。若当前只有快照或不完整随访，继续使用采集模板记录证据缺口。
 
 使用 Python 3.10+ 和系统 IANA 时区数据库运行 `scripts/analyze_registration_credit.py`。返回 JSON，指定 `--format markdown` 可生成中文报告。零分母显示未知，排名保留并列。报告基于声明的匿名聚合口径，授权和源端计算由负责人核实。该格式与九阶段合成分析器、Dashboard workspace 分开。
+
+账户级注册批次使用 0.2 契约。cohort.unit 为 `unique registered account`，阶段计数为 `unique_accounts`，去重质量声明为 `unique_accounts_deduplicated`，来源提供不可变的 `provenance.snapshot_id`。0.1 继续按自然人计量。两种统计单位各自形成时间序列。

@@ -128,11 +128,16 @@ def load_sources(path):
             mapping_path = path.parent / config["mapping"]
             mapping = funnel.fields(read_json(mapping_path), "template field_map", f"{key}.mapping")
             funnel.require_text(mapping["template"], f"{key}.mapping.template")
-            if not isinstance(mapping["field_map"], dict) or mapping["field_map"].keys() != MAPPED_FIELDS:
-                raise ValueError(f"{key}: map each stage count, all three dates and extracted_at")
+            mapping["template"] = read_json(mapping_path.parent / mapping["template"])
+            if not isinstance(mapping["template"], dict):
+                raise ValueError(f"{key}: invalid intake template")
+            required_fields = MAPPED_FIELDS
+            if mapping["template"].get("version") == "0.2":
+                required_fields = MAPPED_FIELDS | {"provenance.snapshot_id"}
+            if not isinstance(mapping["field_map"], dict) or mapping["field_map"].keys() != required_fields:
+                raise ValueError(f"{key}: map each stage count and required observation metadata")
             for source_path in mapping["field_map"].values():
                 funnel.require_text(source_path, f"{key}.mapping.field_map path")
-            mapping["template"] = read_json(mapping_path.parent / mapping["template"])
             config["mapping"] = mapping
     return configs
 
@@ -154,7 +159,10 @@ def normalize(payload, config):
         provenance["extracted_at"] = lookup(payload, paths["provenance.extracted_at"])
         for field in ("registration_start", "registration_end", "observation_cutoff"):
             cohort[field] = lookup(payload, paths[f"cohort.{field}"])
-        stages = [{**stage, "unique_people": lookup(payload, paths[stage["id"]])}
+        _, counter = funnel.POPULATIONS[template["version"]]
+        if template["version"] == "0.2":
+            provenance["snapshot_id"] = lookup(payload, paths["provenance.snapshot_id"])
+        stages = [{**stage, counter: lookup(payload, paths[stage["id"]])}
                   for stage in template["stages"]]
     except (TypeError, KeyError):
         raise ValueError("invalid intake template") from None
@@ -210,7 +218,8 @@ class Sources:
 
 
 class DashboardHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, sources, **kwargs):
+    def __init__(self, *args, sources, project, **kwargs):
+        self.project = project
         self.sources = sources
         super().__init__(*args, **kwargs)
 
@@ -235,6 +244,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if not self.valid_host():
             self.send_error(403)
+        elif self.path == "/api/project":
+            self.send_json(200, self.project)
         elif self.path == "/api/sources":
             self.send_json(200, self.sources.list())
         elif self.path.startswith("/api/"):
@@ -259,21 +270,47 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         self.send_json(*self.sources.refresh(match[1]))
 
 
-def create_server(configs, directory, port):
-    handler = partial(DashboardHandler, sources=Sources(configs), directory=directory)
+def load_project(path):
+    project = funnel.fields(read_json(path), "name environment views", "project")
+    for key in ("name", "environment"):
+        funnel.require_text(project[key], key)
+    views = funnel.fields(project["views"], "overview funnel economics experiments delivery sources", "views")
+    for name, panels in views.items():
+        if not isinstance(panels, list) or not panels:
+            raise ValueError(f"{name} requires at least one panel")
+        for panel in panels:
+            funnel.fields(panel, "title headers rows", "panel")
+            funnel.require_text(panel["title"], "title")
+            headers, rows = panel["headers"], panel["rows"]
+            if not isinstance(headers, list) or not headers or not isinstance(rows, list):
+                raise ValueError("Each panel requires column headers and rows")
+            for header in headers:
+                funnel.require_text(header, "column header")
+            for row in rows:
+                if not isinstance(row, list) or len(row) != len(headers):
+                    raise ValueError("Row size must match column count")
+                for cell in row:
+                    funnel.require_text(cell, "cell")
+    return project
+
+
+def create_server(configs, directory, port, project=None):
+    handler = partial(DashboardHandler, sources=Sources(configs), project=project, directory=directory)
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True, type=Path, help="local source configuration JSON")
+    parser.add_argument("--project", type=Path, help="private project review panels JSON")
     parser.add_argument("--port", type=int, default=4173)
     args = parser.parse_args()
     directory = ROOT / "dashboard/out"
     if not (directory / "index.html").is_file():
         parser.error("build the dashboard first with npm run build")
     try:
-        with create_server(load_sources(args.config), directory, args.port) as server:
+        with create_server(load_sources(args.config), directory, args.port,
+                           load_project(args.project) if args.project else None) as server:
             print(f"FinGrowth listening on http://127.0.0.1:{server.server_port}", flush=True)
             server.serve_forever()
     except (ValueError, OSError, RecursionError) as exc:

@@ -306,6 +306,56 @@ function LeaderCard({
     </div>
   );
 }
+const hostedDemo = process.env.NEXT_PUBLIC_FINGROWTH_HOSTED === "1";
+const demoCases = [
+  ["mature", "A · Complete 7-day window"],
+  ["window-open", "B · Window still open"],
+  ["missing-definition", "A · Missing KYC definition"],
+  ["invalid-count", "A · Inconsistent stage counts"],
+] as const;
+
+function HostedFunnel() {
+  const [selected, setSelected] = useState("mature");
+  const [revision, setRevision] = useState(0);
+  const [busy, setBusy] = useState(true);
+  const [state, setState] = useState<FunnelState>({ snapshot: null, error: null });
+  useEffect(() => {
+    const controller = new AbortController();
+    async function load() {
+      setBusy(true);
+      try {
+        const response = await fetch("/api/funnel?case=" + encodeURIComponent(selected), {
+          signal: controller.signal, cache: "no-store",
+        });
+        if (!response.ok && response.status !== 422) throw new Error();
+        const next: FunnelState = await response.json();
+        if (!controller.signal.aborted) {
+          setState(previous => ({ snapshot: next.snapshot ?? previous.snapshot, error: next.error }));
+        }
+      } catch {
+        if (!controller.signal.aborted) {
+          setState(previous => ({ ...previous, error: "Could not reach the demo. Try refreshing." }));
+        }
+      } finally {
+        if (!controller.signal.aborted) setBusy(false);
+      }
+    }
+    void load();
+    return () => controller.abort();
+  }, [selected, revision]);
+  return <>
+    <div className="context-bar">
+      <Pill tone="sage">Synthetic demo</Pill>
+      <label>Test scenario{" "}
+        <select aria-label="Test scenario" value={selected} onChange={event => setSelected(event.target.value)}>
+          {demoCases.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+        </select>
+      </label>
+    </div>
+    <FunnelReport state={state} busy={busy} refresh={() => setRevision(value => value + 1)} />
+  </>;
+}
+
 function ConnectedFunnel() {
   const [sources, setSources] = useState<FunnelSource[]>([]);
   const [selected, setSelected] = useState("");
@@ -429,6 +479,12 @@ function ConnectedFunnelSource({ id }: { id: string }) {
     }
   }
 
+  return <FunnelReport state={state} busy={busy} refresh={refresh} />;
+}
+
+function FunnelReport({ state, busy, refresh }: {
+  state: FunnelState; busy: boolean; refresh: () => void;
+}) {
   const snapshot = state.snapshot;
   const report = snapshot?.report;
   const cohort = report?.cohort;
@@ -574,6 +630,7 @@ export default function Dashboard() {
   const [project, setProject] = useState<ProjectReview | null>(null);
   useEffect(() => {
     const controller = new AbortController();
+    if (hostedDemo) return;
     fetch("/api/project", {signal: controller.signal})
       .then(async response => response.ok && response.headers.get("content-type")?.includes("application/json") ? response.json() : null)
       .then(value => { if (!controller.signal.aborted) setProject(value); })
@@ -581,7 +638,7 @@ export default function Dashboard() {
     return () => controller.abort();
   }, []);
   const [selected, setSelected] = useState("0");
-  const [view, setView] = useState<View>("overview");
+  const [view, setView] = useState<View>(hostedDemo ? "registration-credit" : "overview");
   const [importOpen, setImportOpen] = useState(false),
     [draft, setDraft] = useState(""),
     [error, setError] = useState(""),
@@ -719,7 +776,7 @@ export default function Dashboard() {
             <span className="local-status">
               <span className="status-dot" />
               {project ? project.environment : view === "registration-credit"
-                ? "Configured data source"
+                ? (hostedDemo ? "Public demo · HTTP" : "Configured data source")
                 : "Browser-local workspace"}
             </span>
             <span className="user-avatar">S</span>
@@ -742,7 +799,7 @@ export default function Dashboard() {
                         : view === "experiments"
                           ? "Turn a hypothesis into a reviewable decision."
                           : view === "registration-credit"
-                            ? "Review five stages from a configured aggregate source."
+                            ? (hostedDemo ? "Follow a weekly cohort from registration to credit approval. Switch scenarios to see when a report can be trusted." : "Review five stages from a configured aggregate source.")
                             : "Connect every initiative to an owner and acceptance check."}
               </p>}
             </div>
@@ -785,7 +842,7 @@ export default function Dashboard() {
               ))}
             </div>
           ) : view === "registration-credit" ? (
-            <ConnectedFunnel />
+            hostedDemo ? <HostedFunnel /> : <ConnectedFunnel />
           ) : (
             <div className="context-bar">
               <div className="context-meta">

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm --prefix dashboard ci",
+  "buildCommand": "NEXT_PUBLIC_FINGROWTH_HOSTED=1 npm --prefix dashboard run build",
+  "outputDirectory": "dashboard/out",
+  "functions": {
+    "api/funnel.py": {
+      "includeFiles": "{examples/weekly-cohorts/*.json,skills/growth-funnel-diagnosis/scripts/*.py}"
+    }
+  }
+}
